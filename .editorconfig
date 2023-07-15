@@ -1,0 +1,14 @@
+# Reference: https://github.com/RehanSaeed/EditorConfig/blob/main/.editorconfig
+#            https://learn.microsoft.com/en-gb/dotnet/fundamentals/code-analysis/style-rules/csharp-formatting-options
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.sln]
+indent_style = tab
+
+[*.cs]
+csharp_new_line_before_open_brace = none
