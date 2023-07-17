@@ -1,5 +1,8 @@
 # Reference: https://github.com/RehanSaeed/EditorConfig/blob/main/.editorconfig
 #            https://learn.microsoft.com/en-gb/dotnet/fundamentals/code-analysis/style-rules/csharp-formatting-options
+#            https://github.com/JosefPihrt/Roslynator/blob/main/docs/Configuration.md
+root = true
+
 [*]
 charset = utf-8
 indent_style = space
@@ -12,3 +15,14 @@ indent_style = tab
 
 [*.cs]
 csharp_new_line_before_open_brace = none
+csharp_space_between_method_declaration_name_and_open_parenthesis = false
+
+# Don't flag MonoBehavior events as unused. [rcs1213]
+roslynator_suppress_unity_script_methods = true
+# Stop suggesting making fields read-only. Useless in Unity most of the time.
+dotnet_diagnostic.rcs1169.severity = none
+# Unity cannot override '?.' like '== null' check for its Objects,
+# so stop suggesting replacing the latter with the former.
+dotnet_diagnostic.rcs1146.severity = none
+# I like using (extra * parentesis) for expressiveness in some cases.
+dotnet_diagnostic.rcs1032.severity = none
