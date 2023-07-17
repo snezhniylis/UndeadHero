@@ -1264,6 +1264,7 @@ GameObject:
   - component: {fileID: 8422892626592999198}
   - component: {fileID: 1067017103}
   - component: {fileID: 1067017104}
+  - component: {fileID: 1067017107}
   m_Layer: 0
   m_Name: Doge
   m_TagString: Untagged
@@ -1340,6 +1341,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterController: {fileID: 1067017103}
   _movementSpeed: 4
+--- !u!114 &1067017107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8422892626600285392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57c7bbdeac6e93d5ebb55cc9561b584b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 8422892626592999198}
+  _characterController: {fileID: 1067017103}
 --- !u!1 &8422892626600285394
 GameObject:
   m_ObjectHideFlags: 0
