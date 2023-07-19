@@ -6,8 +6,8 @@ namespace UndeadHero.Infrastructure {
     public static IInputService InputService;
     public GameStateMachine StateMachine;
 
-    public Game() {
-      StateMachine = new GameStateMachine();
+    public Game(ICoroutineRunner coroutineRunner) {
+      StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner));
     }
   }
 }
