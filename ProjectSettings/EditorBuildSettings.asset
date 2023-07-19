@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/UndeadHero/Scenes/01-Entry/Entry.unity
+    guid: 889dea2bcb17310cba6fe3fc14126f31
+  - enabled: 1
+    path: Assets/UndeadHero/Scenes/10-Cemetery/Cemetery.unity
+    guid: 80899f7a121cad69e90cbb95c69c744b
   m_configObjects: {}

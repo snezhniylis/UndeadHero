@@ -16,6 +16,7 @@ namespace UndeadHero.Infrastructure {
 
     public void Enter() {
       Game.InputService = InitializeInputService();
+      _sceneLoader.Load(EntrySceneName, onLoaded: EntrySceneLoaded);
     }
 
     private void EntrySceneLoaded() { }
