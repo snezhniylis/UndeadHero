@@ -7,7 +7,9 @@ namespace UndeadHero.Infrastructure {
     private IState _activeState;
 
     public GameStateMachine() {
-      _states = new Dictionary<Type, IState>();
+      _states = new Dictionary<Type, IState> {
+        [typeof(StateBootstrap)] = new StateBootstrap(this)
+      };
     }
 
     public void Enter<TState>() where TState : IState {
