@@ -1,5 +1,4 @@
 using UnityEngine;
-using UndeadHero.CameraLogic;
 using UndeadHero.Services.Input;
 using UndeadHero.Infrastructure;
 
@@ -21,8 +20,6 @@ namespace UndeadHero.Character {
     private void Awake() {
       _inputService = Game.InputService;
       _camera = Camera.main;
-
-      SelfAssignToCamera();
     }
 
     private void Update() {
@@ -40,12 +37,6 @@ namespace UndeadHero.Character {
 
       movementVector += Physics.gravity;
       _characterController.Move(_movementSpeed * Time.deltaTime * movementVector);
-    }
-
-    private void SelfAssignToCamera() {
-      if (_camera.TryGetComponent<CameraMover>(out var cameraMover)) {
-        cameraMover.SetTarget(transform);
-      }
     }
   }
 }

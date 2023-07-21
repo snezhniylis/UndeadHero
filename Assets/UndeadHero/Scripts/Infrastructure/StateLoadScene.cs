@@ -1,4 +1,5 @@
 using UnityEngine;
+using UndeadHero.CameraLogic;
 
 namespace UndeadHero.Infrastructure {
   class StateLoadScene : IStatePayloaded<string> {
@@ -20,12 +21,19 @@ namespace UndeadHero.Infrastructure {
 
     private void OnSceneLoaded() {
       InstantiatePrefab(HudPrefabPath);
-      InstantiatePrefab(DogePrefabPath);
+      GameObject doge = InstantiatePrefab(DogePrefabPath);
+      SetCameraFollowTarget(doge);
     }
 
     private static GameObject InstantiatePrefab(string path) {
       var prefab = Resources.Load<GameObject>(path);
       return Object.Instantiate(prefab);
+    }
+
+    private void SetCameraFollowTarget(GameObject target) {
+      if (Camera.main.TryGetComponent<CameraMover>(out var cameraMover)) {
+        cameraMover.SetTarget(target);
+      }
     }
   }
 }

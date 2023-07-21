@@ -13,8 +13,8 @@ namespace UndeadHero.CameraLogic {
 
     private Transform _followedTarget;
 
-    public void SetTarget(Transform target) =>
-      _followedTarget = target;
+    public void SetTarget(GameObject target) =>
+      _followedTarget = target.transform;
 
     private void LateUpdate() {
       FollowTarget();
