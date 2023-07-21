@@ -26,6 +26,8 @@ namespace UndeadHero.Infrastructure {
       var playerSpawnPoint = GameObject.FindWithTag(PlayerSpawnPointTag).transform;
       GameObject doge = InstantiatePrefab(DogePrefabPath, playerSpawnPoint.position, playerSpawnPoint.rotation);
       SetCameraFollowTarget(doge);
+
+      _gameStateMachine.Enter<StateGameLoop>();
     }
 
     private static GameObject InstantiatePrefab(string path) =>
