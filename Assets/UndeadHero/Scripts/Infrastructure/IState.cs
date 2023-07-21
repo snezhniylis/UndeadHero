@@ -1,6 +1,13 @@
 namespace UndeadHero.Infrastructure {
-  public interface IState {
-    void Enter();
+  public interface IStateBase {
     void Exit();
+  }
+
+  public interface IState : IStateBase {
+    void Enter();
+  }
+
+  public interface IStatePayloaded<TPayload> : IStateBase {
+    void Enter(TPayload payload);
   }
 }
