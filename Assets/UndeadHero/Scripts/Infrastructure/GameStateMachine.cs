@@ -8,7 +8,8 @@ namespace UndeadHero.Infrastructure {
 
     public GameStateMachine(SceneLoader sceneLoader) {
       _states = new Dictionary<Type, IStateBase> {
-        [typeof(StateBootstrap)] = new StateBootstrap(this, sceneLoader)
+        [typeof(StateBootstrap)] = new StateBootstrap(this, sceneLoader),
+        [typeof(StateLoadScene)] = new StateLoadScene(this, sceneLoader)
       };
     }
 
