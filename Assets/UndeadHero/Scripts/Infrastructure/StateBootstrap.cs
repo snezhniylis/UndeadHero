@@ -1,4 +1,3 @@
-using System;
 using UndeadHero.Services.Input;
 using UnityEngine;
 
@@ -14,14 +13,18 @@ namespace UndeadHero.Infrastructure {
       _sceneLoader = sceneLoader;
     }
 
-    public void Enter() {
-      Game.InputService = InitializeInputService();
-      _sceneLoader.Load(EntrySceneName, onLoaded: EntrySceneLoaded);
-    }
-
-    private void EntrySceneLoaded() { }
+    public void Enter() =>
+      _sceneLoader.Load(EntrySceneName, OnEntrySceneLoaded);
 
     public void Exit() { }
+
+    private void OnEntrySceneLoaded() {
+      InitializeServices();
+    }
+
+    private static void InitializeServices() {
+      Game.InputService = InitializeInputService();
+    }
 
     private static IInputService InitializeInputService() {
       return Application.isEditor ? new DebugInputService() : new MobileInputService();
