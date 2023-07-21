@@ -5,6 +5,7 @@ namespace UndeadHero.Infrastructure {
   class StateLoadScene : IStatePayloaded<string> {
     private const string HudPrefabPath = "UI/HUD";
     private const string DogePrefabPath = "Characters/Playable/Doge/Doge";
+    private const string PlayerSpawnPointTag = "PlayerSpawnPoint";
 
     private readonly GameStateMachine _gameStateMachine;
     private readonly SceneLoader _sceneLoader;
@@ -21,13 +22,18 @@ namespace UndeadHero.Infrastructure {
 
     private void OnSceneLoaded() {
       InstantiatePrefab(HudPrefabPath);
-      GameObject doge = InstantiatePrefab(DogePrefabPath);
+
+      var playerSpawnPoint = GameObject.FindWithTag(PlayerSpawnPointTag).transform;
+      GameObject doge = InstantiatePrefab(DogePrefabPath, playerSpawnPoint.position, playerSpawnPoint.rotation);
       SetCameraFollowTarget(doge);
     }
 
-    private static GameObject InstantiatePrefab(string path) {
+    private static GameObject InstantiatePrefab(string path) =>
+      InstantiatePrefab(path, Vector3.zero, Quaternion.identity);
+
+    private static GameObject InstantiatePrefab(string path, Vector3 position, Quaternion rotation) {
       var prefab = Resources.Load<GameObject>(path);
-      return Object.Instantiate(prefab);
+      return Object.Instantiate(prefab, position, rotation);
     }
 
     private void SetCameraFollowTarget(GameObject target) {
