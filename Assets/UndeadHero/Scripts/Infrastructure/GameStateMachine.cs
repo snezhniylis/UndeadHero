@@ -6,10 +6,10 @@ namespace UndeadHero.Infrastructure {
     private readonly Dictionary<Type, IStateBase> _states;
     private IStateBase _activeState;
 
-    public GameStateMachine(SceneLoader sceneLoader) {
+    public GameStateMachine(SceneLoader sceneLoader, LoadingScreen loadingScreen) {
       _states = new Dictionary<Type, IStateBase> {
         [typeof(StateBootstrap)] = new StateBootstrap(this, sceneLoader),
-        [typeof(StateLoadScene)] = new StateLoadScene(this, sceneLoader),
+        [typeof(StateLoadScene)] = new StateLoadScene(this, sceneLoader, loadingScreen),
         [typeof(StateGameLoop)] = new StateGameLoop(this)
       };
     }

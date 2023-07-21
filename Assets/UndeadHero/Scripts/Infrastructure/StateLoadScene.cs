@@ -9,16 +9,21 @@ namespace UndeadHero.Infrastructure {
 
     private readonly GameStateMachine _gameStateMachine;
     private readonly SceneLoader _sceneLoader;
+    private readonly LoadingScreen _loadingScreen;
 
-    public StateLoadScene(GameStateMachine gameStateMachine, SceneLoader sceneLoader) {
+    public StateLoadScene(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingScreen loadingScreen) {
       _gameStateMachine = gameStateMachine;
       _sceneLoader = sceneLoader;
+      _loadingScreen = loadingScreen;
     }
 
-    public void Enter(string sceneName) =>
+    public void Enter(string sceneName) {
+      _loadingScreen.Show();
       _sceneLoader.Load(sceneName, OnSceneLoaded);
+    }
 
-    public void Exit() { }
+    public void Exit() =>
+      _loadingScreen.Hide();
 
     private void OnSceneLoaded() {
       InstantiatePrefab(HudPrefabPath);
