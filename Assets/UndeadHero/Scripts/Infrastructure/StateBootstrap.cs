@@ -4,7 +4,7 @@ using UnityEngine;
 namespace UndeadHero.Infrastructure {
   public class StateBootstrap : IState {
     private const string EntrySceneName = "Entry";
-
+    private const string PlayableSceneName = "Cemetery";
     private readonly GameStateMachine _stateMachine;
     private readonly SceneLoader _sceneLoader;
 
@@ -20,6 +20,7 @@ namespace UndeadHero.Infrastructure {
 
     private void OnEntrySceneLoaded() {
       InitializeServices();
+      _stateMachine.Enter<StateLoadScene, string>(PlayableSceneName);
     }
 
     private static void InitializeServices() {
