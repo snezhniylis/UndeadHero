@@ -1,5 +1,4 @@
 using UnityEngine;
-using UndeadHero.CameraLogic;
 
 namespace UndeadHero.Infrastructure.Factory {
   public interface IGameFactory {
