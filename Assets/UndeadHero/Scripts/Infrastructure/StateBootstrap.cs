@@ -20,7 +20,7 @@ namespace UndeadHero.Infrastructure {
 
     private void OnEntrySceneLoaded() {
       InitializeServices();
-      _stateMachine.Enter<StateLoadScene, string>(PlayableSceneName);
+      _stateMachine.Enter<StateLoadLevel, string>(PlayableSceneName);
     }
 
     private static void InitializeServices() {

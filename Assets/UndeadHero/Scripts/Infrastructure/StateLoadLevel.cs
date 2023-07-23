@@ -2,16 +2,16 @@ using UnityEngine;
 using UndeadHero.CameraLogic;
 
 namespace UndeadHero.Infrastructure {
-  class StateLoadScene : IStatePayloaded<string> {
+  class StateLoadLevel : IStatePayloaded<string> {
     private const string PlayerSpawnPointTag = "PlayerSpawnPoint";
 
-    private readonly GameStateMachine _gameStateMachine;
+    private readonly GameStateMachine _stateMachine;
     private readonly SceneLoader _sceneLoader;
     private readonly LoadingScreen _loadingScreen;
     private readonly IGameFactory _gameFactory;
 
-    public StateLoadScene(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingScreen loadingScreen) {
-      _gameStateMachine = gameStateMachine;
+    public StateLoadLevel(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingScreen loadingScreen) {
+      _stateMachine = stateMachine;
       _sceneLoader = sceneLoader;
       _loadingScreen = loadingScreen;
       // TODO: temporarily solution until I add a service locator
@@ -32,7 +32,7 @@ namespace UndeadHero.Infrastructure {
       GameObject doge = _gameFactory.CreateHero(GameObject.FindWithTag(PlayerSpawnPointTag));
       SetCameraFollowTarget(doge);
 
-      _gameStateMachine.Enter<StateGameLoop>();
+      _stateMachine.Enter<StateGameLoop>();
     }
 
     private void SetCameraFollowTarget(GameObject target) {
