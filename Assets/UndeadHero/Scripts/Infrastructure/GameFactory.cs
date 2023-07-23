@@ -3,8 +3,6 @@ using UndeadHero.Infrastructure.AssetManagement;
 
 namespace UndeadHero.Infrastructure {
   public class GameFactory : IGameFactory {
-    private const string DogePrefabPath = "Characters/Playable/Doge/Doge";
-    private const string HudPrefabPath = "UI/HUD";
     private readonly IAssetProvider _assetProvider;
 
     public GameFactory(IAssetProvider assetProvider) {
@@ -12,9 +10,9 @@ namespace UndeadHero.Infrastructure {
     }
 
     public GameObject CreateHero(GameObject spawnPoint) =>
-      _assetProvider.Instantiate(DogePrefabPath, spawnPoint.transform.position, spawnPoint.transform.rotation);
+      _assetProvider.Instantiate(AssetPaths.Doge, spawnPoint.transform.position, spawnPoint.transform.rotation);
 
     public void CreateHud() =>
-      _assetProvider.Instantiate(HudPrefabPath);
+      _assetProvider.Instantiate(AssetPaths.Hud);
   }
 }
