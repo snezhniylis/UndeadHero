@@ -15,7 +15,7 @@ namespace UndeadHero.Infrastructure {
       _sceneLoader = sceneLoader;
       _loadingScreen = loadingScreen;
       // TODO: temporarily solution until I add a service locator
-      _gameFactory = new GameFactory();
+      _gameFactory = new GameFactory(new AssetManagement.AssetProvider());
     }
 
     public void Enter(string sceneName) {
