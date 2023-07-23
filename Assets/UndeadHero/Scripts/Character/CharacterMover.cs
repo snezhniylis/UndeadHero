@@ -1,6 +1,6 @@
 using UnityEngine;
 using UndeadHero.Services.Input;
-using UndeadHero.Infrastructure;
+using UndeadHero.Infrastructure.Services;
 
 namespace UndeadHero.Character {
   [RequireComponent(typeof(CharacterController))]
@@ -18,7 +18,7 @@ namespace UndeadHero.Character {
     }
 
     private void Awake() {
-      _inputService = Game.InputService;
+      _inputService = GameServices.Container.Single<IInputService>();
       _camera = Camera.main;
     }
 

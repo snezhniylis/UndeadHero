@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
+using UndeadHero.Infrastructure.Factory;
+using UndeadHero.Infrastructure.Services;
 
 namespace UndeadHero.Infrastructure.States {
   public class GameStateMachine {
     private readonly Dictionary<Type, IStateBase> _states;
     private IStateBase _activeState;
 
-    public GameStateMachine(SceneLoader sceneLoader, LoadingScreen loadingScreen) {
+    public GameStateMachine(SceneLoader sceneLoader, LoadingScreen loadingScreen, GameServices gameServices) {
       _states = new Dictionary<Type, IStateBase> {
-        [typeof(StateBootstrap)] = new StateBootstrap(this, sceneLoader),
-        [typeof(StateLoadLevel)] = new StateLoadLevel(this, sceneLoader, loadingScreen),
+        [typeof(StateBootstrap)] = new StateBootstrap(this, sceneLoader, gameServices),
+        [typeof(StateLoadLevel)] = new StateLoadLevel(this, sceneLoader, loadingScreen, gameServices.Single<IGameFactory>()),
         [typeof(StateGameLoop)] = new StateGameLoop(this)
       };
     }

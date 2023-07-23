@@ -1,5 +1,8 @@
-using UndeadHero.Services.Input;
 using UnityEngine;
+using UndeadHero.Services.Input;
+using UndeadHero.Infrastructure.Services;
+using UndeadHero.Infrastructure.Factory;
+using UndeadHero.Infrastructure.AssetManagement;
 
 namespace UndeadHero.Infrastructure.States {
   public class StateBootstrap : IState {
@@ -7,10 +10,14 @@ namespace UndeadHero.Infrastructure.States {
     private const string PlayableSceneName = "Cemetery";
     private readonly GameStateMachine _stateMachine;
     private readonly SceneLoader _sceneLoader;
+    private readonly GameServices _gameServices;
 
-    public StateBootstrap(GameStateMachine stateMachine, SceneLoader sceneLoader) {
+    public StateBootstrap(GameStateMachine stateMachine, SceneLoader sceneLoader, GameServices gameServices) {
       _stateMachine = stateMachine;
       _sceneLoader = sceneLoader;
+      _gameServices = gameServices;
+
+      RegisterGameServices();
     }
 
     public void Enter() =>
@@ -19,12 +26,13 @@ namespace UndeadHero.Infrastructure.States {
     public void Exit() { }
 
     private void OnEntrySceneLoaded() {
-      InitializeServices();
       _stateMachine.Enter<StateLoadLevel, string>(PlayableSceneName);
     }
 
-    private static void InitializeServices() {
-      Game.InputService = InitializeInputService();
+    private void RegisterGameServices() {
+      _gameServices.RegisterSingle<IInputService>(InitializeInputService());
+      _gameServices.RegisterSingle<IAssetProvider>(new AssetProvider());
+      _gameServices.RegisterSingle<IGameFactory>(new GameFactory(GameServices.Container.Single<IAssetProvider>()));
     }
 
     private static IInputService InitializeInputService() {

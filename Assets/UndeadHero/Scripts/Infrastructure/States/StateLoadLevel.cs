@@ -11,12 +11,11 @@ namespace UndeadHero.Infrastructure.States {
     private readonly LoadingScreen _loadingScreen;
     private readonly IGameFactory _gameFactory;
 
-    public StateLoadLevel(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingScreen loadingScreen) {
+    public StateLoadLevel(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingScreen loadingScreen, IGameFactory gameFactory) {
       _stateMachine = stateMachine;
       _sceneLoader = sceneLoader;
       _loadingScreen = loadingScreen;
-      // TODO: temporarily solution until I add a service locator
-      _gameFactory = new GameFactory(new AssetManagement.AssetProvider());
+      _gameFactory = gameFactory;
     }
 
     public void Enter(string sceneName) {
