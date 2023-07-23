@@ -1,4 +1,5 @@
 using UnityEngine;
+using UndeadHero.Infrastructure.States;
 
 namespace UndeadHero.Infrastructure {
   public class GameBootstrapper : MonoBehaviour, ICoroutineRunner {

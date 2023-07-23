@@ -1,7 +1,7 @@
 using UndeadHero.Services.Input;
 using UnityEngine;
 
-namespace UndeadHero.Infrastructure {
+namespace UndeadHero.Infrastructure.States {
   public class StateBootstrap : IState {
     private const string EntrySceneName = "Entry";
     private const string PlayableSceneName = "Cemetery";

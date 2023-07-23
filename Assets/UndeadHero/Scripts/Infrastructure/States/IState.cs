@@ -1,4 +1,4 @@
-namespace UndeadHero.Infrastructure {
+namespace UndeadHero.Infrastructure.States {
   public interface IStateBase {
     void Exit();
   }

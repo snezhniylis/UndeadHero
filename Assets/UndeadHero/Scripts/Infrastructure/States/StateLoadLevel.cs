@@ -1,7 +1,8 @@
 using UnityEngine;
 using UndeadHero.CameraLogic;
+using UndeadHero.Infrastructure.Factory;
 
-namespace UndeadHero.Infrastructure {
+namespace UndeadHero.Infrastructure.States {
   class StateLoadLevel : IStatePayloaded<string> {
     private const string PlayerSpawnPointTag = "PlayerSpawnPoint";
 

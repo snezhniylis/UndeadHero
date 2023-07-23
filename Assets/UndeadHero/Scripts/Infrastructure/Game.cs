@@ -1,5 +1,6 @@
 using UnityEngine;
 using UndeadHero.Services.Input;
+using UndeadHero.Infrastructure.States;
 
 namespace UndeadHero.Infrastructure {
   public class Game {

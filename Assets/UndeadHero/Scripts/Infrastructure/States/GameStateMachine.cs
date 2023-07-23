@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace UndeadHero.Infrastructure {
+namespace UndeadHero.Infrastructure.States {
   public class GameStateMachine {
     private readonly Dictionary<Type, IStateBase> _states;
     private IStateBase _activeState;

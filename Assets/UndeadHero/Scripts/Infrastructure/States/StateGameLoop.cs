@@ -1,4 +1,4 @@
-namespace UndeadHero.Infrastructure {
+namespace UndeadHero.Infrastructure.States {
   class StateGameLoop : IState {
     private readonly GameStateMachine _stateMachine;
 

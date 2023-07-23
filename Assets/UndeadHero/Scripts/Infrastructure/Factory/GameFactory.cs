@@ -1,7 +1,7 @@
 using UnityEngine;
 using UndeadHero.Infrastructure.AssetManagement;
 
-namespace UndeadHero.Infrastructure {
+namespace UndeadHero.Infrastructure.Factory {
   public class GameFactory : IGameFactory {
     private readonly IAssetProvider _assetProvider;
 
