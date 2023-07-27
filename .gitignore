@@ -1,5 +1,6 @@
 /RoslynExtensions
 omnisharp.json
+/.idea
 
 # The following is .gitignore template, taken from:
 # https://github.com/github/gitignore/blob/main/Unity.gitignore
