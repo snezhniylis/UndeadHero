@@ -1,6 +1,6 @@
-using UnityEngine;
 using UndeadHero.CameraLogic;
 using UndeadHero.Infrastructure.Factory;
+using UnityEngine;
 
 namespace UndeadHero.Infrastructure.States {
   class StateLoadLevel : IStatePayloaded<string> {
