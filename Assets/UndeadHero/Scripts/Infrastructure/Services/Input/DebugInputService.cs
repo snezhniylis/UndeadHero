@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UndeadHero.Services.Input {
+namespace UndeadHero.Infrastructure.Services.Input {
   public class DebugInputService : MobileInputService {
     public override Vector2 MovementAxis {
       get {

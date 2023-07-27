@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UndeadHero.Services.Input {
+namespace UndeadHero.Infrastructure.Services.Input {
   public class MobileInputService : IInputService {
     protected const string XAxisId = "Horizontal";
     protected const string YAxisId = "Vertical";

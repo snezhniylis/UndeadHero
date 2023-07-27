@@ -1,6 +1,6 @@
 using UnityEngine;
-using UndeadHero.Services.Input;
 using UndeadHero.Infrastructure.Services;
+using UndeadHero.Infrastructure.Services.Input;
 using UndeadHero.Infrastructure.Factory;
 using UndeadHero.Infrastructure.AssetManagement;
 

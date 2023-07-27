@@ -1,6 +1,6 @@
 using UnityEngine;
-using UndeadHero.Services.Input;
 using UndeadHero.Infrastructure.Services;
+using UndeadHero.Infrastructure.Services.Input;
 
 namespace UndeadHero.Character {
   [RequireComponent(typeof(CharacterController))]
