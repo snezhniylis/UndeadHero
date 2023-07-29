@@ -30,6 +30,7 @@ namespace UndeadHero.Infrastructure.States {
 
     private void RegisterGameServices() {
       _gameServices.RegisterSingle<IInputService>(InitializeInputService());
+      _gameServices.RegisterSingle<ISaveManager>(new SaveManager());
       _gameServices.RegisterSingle<IAssetProvider>(new AssetProvider());
       _gameServices.RegisterSingle<IGameFactory>(new GameFactory(GameServices.Container.Single<IAssetProvider>()));
     }
