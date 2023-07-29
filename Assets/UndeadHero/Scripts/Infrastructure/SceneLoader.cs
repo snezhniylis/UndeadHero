@@ -18,7 +18,7 @@ namespace UndeadHero.Infrastructure {
     private IEnumerator LoadScene(string name, Action onLoaded) {
       if (SceneManager.GetActiveScene().name != name) {
         AsyncOperation sceneLoading = SceneManager.LoadSceneAsync(name);
-        if (!sceneLoading.isDone) {
+        while (!sceneLoading.isDone) {
           yield return null;
         }
       }
