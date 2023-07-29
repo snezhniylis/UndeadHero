@@ -1,10 +1,15 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UndeadHero.Data;
 using UndeadHero.Infrastructure.Services;
 using UndeadHero.Infrastructure.Services.Input;
+using UndeadHero.Infrastructure.Services.PersistentProgress;
 
 namespace UndeadHero.Character {
   [RequireComponent(typeof(CharacterController))]
-  public class CharacterMover : MonoBehaviour {
+  public class CharacterMover : MonoBehaviour, IPersistentProgressWriter {
+    private static readonly Vector3 PrecautionaryWarpHeightOffset = new(0, 0.5f, 0);
+
     [SerializeField]
     private CharacterController _characterController;
     [SerializeField]
@@ -38,5 +43,28 @@ namespace UndeadHero.Character {
       movementVector += Physics.gravity;
       _characterController.Move(_movementSpeed * Time.deltaTime * movementVector);
     }
+
+    public void UpdateProgress(PlayerProgress progress) {
+      progress.WorldData.Level = GetCurrentLevelName();
+      progress.WorldData.PlayerPosition = transform.position.AsVectorData();
+    }
+
+    public void LoadProgress(PlayerProgress progress) {
+      if (GetCurrentLevelName() == progress.WorldData.Level) {
+        Vector3Data savedPosition = progress.WorldData.PlayerPosition;
+        if (savedPosition != null) {
+          Warp(savedPosition.AsUnityVector());
+        }
+      }
+    }
+
+    private void Warp(Vector3 position) {
+      _characterController.enabled = false;
+      transform.position = position + PrecautionaryWarpHeightOffset;
+      _characterController.enabled = true;
+    }
+
+    private static string GetCurrentLevelName() =>
+      SceneManager.GetActiveScene().name;
   }
 }
