@@ -11,6 +11,7 @@ namespace UndeadHero.Infrastructure.States {
     public GameStateMachine(SceneLoader sceneLoader, LoadingScreen loadingScreen, GameServices gameServices) {
       _states = new Dictionary<Type, IStateBase> {
         [typeof(StateBootstrap)] = new StateBootstrap(this, sceneLoader, gameServices),
+        [typeof(StateLoadProgress)] = new StateLoadProgress(this),
         [typeof(StateLoadLevel)] = new StateLoadLevel(this, sceneLoader, loadingScreen, gameServices.Single<IGameFactory>()),
         [typeof(StateGameLoop)] = new StateGameLoop(this)
       };

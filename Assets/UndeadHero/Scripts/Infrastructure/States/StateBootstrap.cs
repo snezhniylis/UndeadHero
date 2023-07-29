@@ -7,7 +7,6 @@ using UndeadHero.Infrastructure.AssetManagement;
 namespace UndeadHero.Infrastructure.States {
   public class StateBootstrap : IState {
     private const string EntrySceneName = "Entry";
-    private const string PlayableSceneName = "Cemetery";
     private readonly GameStateMachine _stateMachine;
     private readonly SceneLoader _sceneLoader;
     private readonly GameServices _gameServices;
@@ -26,7 +25,7 @@ namespace UndeadHero.Infrastructure.States {
     public void Exit() { }
 
     private void OnEntrySceneLoaded() {
-      _stateMachine.Enter<StateLoadLevel, string>(PlayableSceneName);
+      _stateMachine.Enter<StateLoadProgress>();
     }
 
     private void RegisterGameServices() {
