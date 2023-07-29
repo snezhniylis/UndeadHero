@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UndeadHero.Infrastructure.Factory;
 using UndeadHero.Infrastructure.Services;
+using UndeadHero.Infrastructure.Services.PersistentProgress;
 
 namespace UndeadHero.Infrastructure.States {
   public class GameStateMachine {
@@ -11,8 +12,8 @@ namespace UndeadHero.Infrastructure.States {
     public GameStateMachine(SceneLoader sceneLoader, LoadingScreen loadingScreen, GameServices gameServices) {
       _states = new Dictionary<Type, IStateBase> {
         [typeof(StateBootstrap)] = new StateBootstrap(this, sceneLoader, gameServices),
-        [typeof(StateLoadProgress)] = new StateLoadProgress(this),
-        [typeof(StateLoadLevel)] = new StateLoadLevel(this, sceneLoader, loadingScreen, gameServices.Single<IGameFactory>()),
+        [typeof(StateLoadProgress)] = new StateLoadProgress(this, gameServices.Single<IPersistentProgressService>()),
+        [typeof(StateLoadLevel)] = new StateLoadLevel(this, sceneLoader, loadingScreen, gameServices.Single<IGameFactory>(), gameServices.Single<IPersistentProgressService>()),
         [typeof(StateGameLoop)] = new StateGameLoop(this)
       };
     }

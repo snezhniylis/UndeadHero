@@ -1,6 +1,8 @@
 using UnityEngine;
 using UndeadHero.Infrastructure.Services;
 using UndeadHero.Infrastructure.Services.Input;
+using UndeadHero.Infrastructure.Services.SaveManagement;
+using UndeadHero.Infrastructure.Services.PersistentProgress;
 using UndeadHero.Infrastructure.Factory;
 using UndeadHero.Infrastructure.AssetManagement;
 
@@ -31,8 +33,9 @@ namespace UndeadHero.Infrastructure.States {
     private void RegisterGameServices() {
       _gameServices.RegisterSingle<IInputService>(InitializeInputService());
       _gameServices.RegisterSingle<ISaveManager>(new SaveManager());
+      _gameServices.RegisterSingle<IPersistentProgressService>(new PersistentProgressService(_gameServices.Single<ISaveManager>()));
       _gameServices.RegisterSingle<IAssetProvider>(new AssetProvider());
-      _gameServices.RegisterSingle<IGameFactory>(new GameFactory(GameServices.Container.Single<IAssetProvider>()));
+      _gameServices.RegisterSingle<IGameFactory>(new GameFactory(_gameServices.Single<IAssetProvider>(), _gameServices.Single<IPersistentProgressService>()));
     }
 
     private static IInputService InitializeInputService() {
