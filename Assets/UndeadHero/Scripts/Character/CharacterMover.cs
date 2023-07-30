@@ -28,20 +28,44 @@ namespace UndeadHero.Character {
     }
 
     private void Update() {
-      Vector3 movementVector = _inputService.MovementAxis;
-      if (movementVector.sqrMagnitude > Mathf.Epsilon) {
-        movementVector = _camera.transform.TransformDirection(movementVector);
-        movementVector.y = 0;
-        movementVector.Normalize();
+      UpdateMovement();
+    }
 
-        transform.forward = movementVector;
+    private void UpdateMovement() {
+      Vector3 inputAxis = _inputService.MovementAxis;
+      float inputMagnitude = inputAxis.magnitude;
+      bool isThereAnyInput = inputMagnitude > Mathf.Epsilon;
+
+      Vector3 movementVector;
+      if (isThereAnyInput) {
+        Vector3 direction = CalculateHeroDirection(inputAxis);
+        transform.forward = direction;
+
+        movementVector = direction * CalculateHeroSpeed(inputMagnitude);
       }
       else {
         movementVector = Vector3.zero;
       }
 
       movementVector += Physics.gravity;
-      _characterController.Move(_movementSpeed * Time.deltaTime * movementVector);
+      _characterController.Move(movementVector * Time.deltaTime);
+    }
+
+    private Vector3 CalculateHeroDirection(Vector3 controlsAxis) {
+      Vector3 direction = _camera.transform.TransformDirection(controlsAxis);
+      direction.y = 0;
+      return direction.normalized;
+    }
+
+    private float CalculateHeroSpeed(float controlsStrength) {
+      float speedFactor = Mathf.Min(controlsStrength, 1);
+      speedFactor = EaseOutCubic(speedFactor);
+      return speedFactor * _movementSpeed;
+    }
+
+    private static float EaseOutCubic(float value) {
+      value--;
+      return (value * value * value + 1);
     }
 
     public void UpdateProgress(PlayerProgress progress) {
