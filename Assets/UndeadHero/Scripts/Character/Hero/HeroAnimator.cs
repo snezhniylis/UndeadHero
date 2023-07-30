@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace UndeadHero.Character {
+namespace UndeadHero.Character.Hero {
   [RequireComponent(typeof(Animator))]
   [RequireComponent(typeof(CharacterController))]
-  public class CharacterAnimator : MonoBehaviour {
+  public class HeroAnimator : MonoBehaviour {
     private static readonly int StateRunningHash = Animator.StringToHash("stateRunning");
 
     [SerializeField]

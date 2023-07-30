@@ -5,9 +5,9 @@ using UndeadHero.Infrastructure.Services;
 using UndeadHero.Infrastructure.Services.Input;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
 
-namespace UndeadHero.Character {
+namespace UndeadHero.Character.Hero {
   [RequireComponent(typeof(CharacterController))]
-  public class CharacterMover : MonoBehaviour, IPersistentProgressWriter {
+  public class HeroMover : MonoBehaviour, IPersistentProgressWriter {
     private static readonly Vector3 PrecautionaryWarpHeightOffset = new(0, 0.5f, 0);
 
     [SerializeField]
