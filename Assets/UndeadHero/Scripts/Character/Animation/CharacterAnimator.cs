@@ -20,7 +20,7 @@ namespace UndeadHero.Character.Animation {
     public event Action<AnimatorState> StateEnteredCallbacks;
     public event Action<AnimatorState> StateExitedCallbacks;
 
-    private void OnValidate() {
+    protected virtual void OnValidate() {
       _animator = GetComponent<Animator>();
     }
 

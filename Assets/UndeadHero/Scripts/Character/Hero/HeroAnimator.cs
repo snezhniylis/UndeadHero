@@ -7,7 +7,7 @@ namespace UndeadHero.Character.Hero {
     [SerializeField]
     private CharacterController _characterController;
 
-    private void OnValidate() {
+    protected override void OnValidate() {
       _characterController = GetComponent<CharacterController>();
     }
 
