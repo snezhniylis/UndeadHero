@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UndeadHero.Infrastructure.AssetManagement;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
@@ -12,8 +13,14 @@ namespace UndeadHero.Infrastructure.Factory {
       _persistentProgress = persistentProgress;
     }
 
-    public GameObject CreateHero(GameObject spawnPoint) =>
-      Instantiate(AssetPaths.Doge, spawnPoint.transform.position, spawnPoint.transform.rotation);
+    public GameObject HeroGameObject { get; private set; }
+    public event Action OnHeroCreated;
+
+    public GameObject CreateHero(GameObject spawnPoint) {
+      HeroGameObject = Instantiate(AssetPaths.Doge, spawnPoint.transform.position, spawnPoint.transform.rotation);
+      OnHeroCreated?.Invoke();
+      return HeroGameObject;
+    }
 
     public void CreateHud() =>
       Instantiate(AssetPaths.Hud);
