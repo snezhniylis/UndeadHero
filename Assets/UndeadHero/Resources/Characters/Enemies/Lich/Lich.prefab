@@ -880,6 +880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 9500000}
+  _navMeshAgent: {fileID: 245947743711765240}
 --- !u!195 &245947743711765240
 NavMeshAgent:
   m_ObjectHideFlags: 0
