@@ -1267,7 +1267,7 @@ GameObject:
   - component: {fileID: 1067017107}
   - component: {fileID: 4842822219010314312}
   - component: {fileID: -7198271660937879484}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Doge
   m_TagString: Untagged
   m_Icon: {fileID: 0}

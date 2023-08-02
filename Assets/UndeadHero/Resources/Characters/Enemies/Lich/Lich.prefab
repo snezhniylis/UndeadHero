@@ -944,7 +944,7 @@ GameObject:
   - component: {fileID: 7167011951554135249}
   - component: {fileID: 1371824475810028837}
   - component: {fileID: 2758475424544413487}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AggroArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
