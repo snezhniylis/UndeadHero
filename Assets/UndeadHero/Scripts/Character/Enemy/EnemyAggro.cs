@@ -10,30 +10,23 @@ namespace UndeadHero.Character.Enemy {
     private EnemyFollowHero _followHeroBehavior;
 
     [SerializeField]
-    private float _cooldown;
+    private float _interestLossSpan;
 
-    private WaitForSeconds _cooldownSeconds;
+    private WaitForSeconds _interestLossSeconds;
     private bool _isFollowingHero;
 
     private void OnValidate() {
-      _triggerObserver = GetComponentInChildren<TriggerObserver>();
       _followHeroBehavior = GetComponent<EnemyFollowHero>();
     }
 
     private void Awake() {
-      _triggerObserver.OnEnteredTrigger += OnEnteredTriggerCallback;
-      _triggerObserver.OnExitedTrigger += OnExitedTriggerCallback;
+      _triggerObserver.OnEnteredTrigger += (Collider c) => { StartFollowingHero(); };
+      _triggerObserver.OnExitedTrigger += (Collider c) => { StopFollowingHero(); };
 
-      _cooldownSeconds = new WaitForSeconds(_cooldown);
+      _interestLossSeconds = new WaitForSeconds(_interestLossSpan);
 
       DisableFollowHeroBehavior();
     }
-
-    private void OnEnteredTriggerCallback(Collider obj) =>
-      StartFollowingHero();
-
-    private void OnExitedTriggerCallback(Collider obj) =>
-      StopFollowingHero();
 
     private void StartFollowingHero() {
       if (!_isFollowingHero) {
@@ -53,7 +46,7 @@ namespace UndeadHero.Character.Enemy {
     }
 
     private IEnumerator StopFollowingHeroRoutine() {
-      yield return _cooldownSeconds;
+      yield return _interestLossSeconds;
       DisableFollowHeroBehavior();
     }
 

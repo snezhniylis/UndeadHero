@@ -932,7 +932,7 @@ MonoBehaviour:
   m_EditorClassIdentifier:
   _triggerObserver: {fileID: 2758475424544413487}
   _followHeroBehavior: {fileID: -3043759592026499101}
-  _cooldown: 3
+  _interestLossSpan: 3
 --- !u!1 &3745852832802683827
 GameObject:
   m_ObjectHideFlags: 0
