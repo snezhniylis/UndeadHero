@@ -7,6 +7,6 @@ namespace UndeadHero.Infrastructure.Factory {
     public GameObject HeroGameObject { get; }
     public event Action OnHeroCreated;
     GameObject CreateHero(GameObject spawnPoint);
-    void CreateHud();
+    GameObject CreateHud();
   }
 }

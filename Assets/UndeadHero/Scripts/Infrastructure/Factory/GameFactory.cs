@@ -22,7 +22,7 @@ namespace UndeadHero.Infrastructure.Factory {
       return HeroGameObject;
     }
 
-    public void CreateHud() =>
+    public GameObject CreateHud() =>
       Instantiate(AssetPaths.Hud);
 
     private GameObject Instantiate(string path) {

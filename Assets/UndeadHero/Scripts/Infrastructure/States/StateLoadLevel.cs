@@ -1,6 +1,8 @@
 using UndeadHero.CameraLogic;
+using UndeadHero.Character.Hero;
 using UndeadHero.Infrastructure.Factory;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
+using UndeadHero.UI.Hud;
 using UnityEngine;
 
 namespace UndeadHero.Infrastructure.States {
@@ -37,10 +39,18 @@ namespace UndeadHero.Infrastructure.States {
     }
 
     private void InitializeLevelEntities() {
-      _gameFactory.CreateHud();
+      GameObject hero = InitializeHero();
+      SetCameraFollowTarget(hero);
 
-      GameObject doge = _gameFactory.CreateHero(GameObject.FindWithTag(PlayerSpawnPointTag));
-      SetCameraFollowTarget(doge);
+      InitializeHud(hero);
+    }
+
+    private GameObject InitializeHero() =>
+      _gameFactory.CreateHero(GameObject.FindWithTag(PlayerSpawnPointTag));
+
+    private void InitializeHud(GameObject hero) {
+      var hud = _gameFactory.CreateHud().GetComponent<Hud>();
+      hud.Initialize(hero.GetComponent<HeroHealth>());
     }
 
     private void SetCameraFollowTarget(GameObject target) {
