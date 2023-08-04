@@ -6,6 +6,7 @@ namespace UndeadHero.Infrastructure.Services.PersistentProgress {
   public class PersistentProgressService : IPersistentProgressService {
     private const string FirstPlayableSceneName = "Cemetery";
     private const string ProgressKey = "Progress";
+    private const float MaxHeroHp = 50f;
 
     private readonly List<IPersistentProgressReader> _progressReaders = new();
     private readonly List<IPersistentProgressWriter> _progressWriters = new();
@@ -19,7 +20,12 @@ namespace UndeadHero.Infrastructure.Services.PersistentProgress {
     }
 
     public void InitializeProgress() =>
-      Progress = _saveManager.Load<PlayerProgress>(ProgressKey) ?? new PlayerProgress(FirstPlayableSceneName);
+      Progress = _saveManager.Load<PlayerProgress>(ProgressKey) ?? new PlayerProgress(FirstPlayableSceneName) {
+        HeroData = {
+          MaxHp = MaxHeroHp,
+          CurrentHp = MaxHeroHp
+        }
+      };
 
     public void SaveProgress() {
       UpdateProgress();
