@@ -1,4 +1,5 @@
 using System.Linq;
+using UndeadHero.Character.Hero;
 using UndeadHero.Infrastructure.Factory;
 using UndeadHero.Infrastructure.Services;
 using UnityEngine;
@@ -19,6 +20,8 @@ namespace UndeadHero.Character.Enemy {
     private Vector3 _attackImpactOrigin;
     [SerializeField]
     private float _attackImpactRadius = 0.5f;
+    [SerializeField]
+    private float _damage;
 
     private IGameFactory _factory;
 
@@ -66,14 +69,16 @@ namespace UndeadHero.Character.Enemy {
     }
 
     private void ProcessHit() {
-      if (Hit(out Collider hit)) {
+      if (Hit(out Collider heroCollider)) {
+        heroCollider.transform.GetComponent<HeroHealth>().TakeDamage(_damage);
+
         CharacterDebug.DrawRaysTimed(LocalToWorld(_attackImpactOrigin), _attackImpactRadius, 0.5f);
       }
     }
 
-    private bool Hit(out Collider hit) {
+    private bool Hit(out Collider heroCollider) {
       int hitsAmount = Physics.OverlapSphereNonAlloc(LocalToWorld(_attackImpactOrigin), _attackImpactRadius, _hitCollisionBuffer, _hitCollisionMask);
-      hit = _hitCollisionBuffer.FirstOrDefault();
+      heroCollider = _hitCollisionBuffer.FirstOrDefault();
       return hitsAmount > 0;
     }
 

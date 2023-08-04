@@ -952,6 +952,7 @@ MonoBehaviour:
   _attackCooldown: 3
   _attackImpactOrigin: {x: 0, y: 0.6, z: 1}
   _attackImpactRadius: 0.6
+  _damage: 10
 --- !u!114 &897035598618750631
 MonoBehaviour:
   m_ObjectHideFlags: 0
