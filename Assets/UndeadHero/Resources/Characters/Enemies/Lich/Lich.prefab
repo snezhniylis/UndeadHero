@@ -826,8 +826,9 @@ GameObject:
   - component: {fileID: 6247740970009251524}
   - component: {fileID: 4968082044736796800}
   - component: {fileID: 897035598618750631}
+  - component: {fileID: 3654478754692776007}
   - component: {fileID: 8289588766154890682}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Lich
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -949,7 +950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aca6074eaaa45ff8eabcada2e787a84, type: 3}
   m_Name:
   m_EditorClassIdentifier:
-  _animator: {fileID: -3351393286428690445}
+  _characterAnimator: {fileID: -3351393286428690445}
   _attackCooldown: 3
   _attackImpactOrigin: {x: 0, y: 0.6, z: 1}
   _attackImpactRadius: 0.6
@@ -968,6 +969,20 @@ MonoBehaviour:
   m_EditorClassIdentifier:
   _triggerObserver: {fileID: 5791678385127785993}
   _attackBehavior: {fileID: 4968082044736796800}
+--- !u!136 &3654478754692776007
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100048}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.95
+  m_Height: 2.6252372
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.81261843, z: 0}
 --- !u!114 &8289588766154890682
 MonoBehaviour:
   m_ObjectHideFlags: 0
