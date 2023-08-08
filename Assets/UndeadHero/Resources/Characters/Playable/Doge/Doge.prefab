@@ -1417,10 +1417,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b91568390da430099ad867545c887e7, type: 3}
   m_Name:
   m_EditorClassIdentifier:
-  _heroHealth: {fileID: 8415191261002240368}
-  _heroMover: {fileID: 1067017104}
-  _heroAnimator: {fileID: 1067017107}
+  _characterHealth: {fileID: 8415191261002240368}
+  _characterAnimator: {fileID: 1067017107}
   _deathFx: {fileID: 100006, guid: 2a474af3f4c27be4e9bdce39cfe4315d, type: 3}
+  _heroMover: {fileID: 1067017104}
 --- !u!114 &2169036023647073426
 MonoBehaviour:
   m_ObjectHideFlags: 0
