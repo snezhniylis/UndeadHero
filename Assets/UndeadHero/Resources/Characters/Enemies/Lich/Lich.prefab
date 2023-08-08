@@ -828,6 +828,7 @@ GameObject:
   - component: {fileID: 897035598618750631}
   - component: {fileID: 3654478754692776007}
   - component: {fileID: 8289588766154890682}
+  - component: {fileID: 4186812155395838471}
   m_Layer: 13
   m_Name: Lich
   m_TagString: Untagged
@@ -998,6 +999,22 @@ MonoBehaviour:
   _characterAnimator: {fileID: -3351393286428690445}
   _currentHealth: 50
   <Max>k__BackingField: 50
+--- !u!114 &4186812155395838471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2b87ed8d7f24411beb6229b936c80c0, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  _characterHealth: {fileID: 8289588766154890682}
+  _characterAnimator: {fileID: -3351393286428690445}
+  _deathFx: {fileID: 100004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
+  _followHeroBehavior: {fileID: -3043759592026499101}
 --- !u!1 &3745852832802683827
 GameObject:
   m_ObjectHideFlags: 0
