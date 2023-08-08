@@ -1,25 +1,25 @@
 using UnityEngine;
 
 namespace UndeadHero.Character.Enemy {
-  [RequireComponent(typeof(EnemyAttackHero))]
+  [RequireComponent(typeof(EnemyAttack))]
   public class EnemyAttackRange : MonoBehaviour {
     [SerializeField]
     private TriggerObserver _triggerObserver;
 
     [SerializeField]
-    private EnemyAttackHero _attackHeroBehavior;
+    private EnemyAttack _attackBehavior;
 
     private void Awake() {
-      _triggerObserver.OnEnteredTrigger += (Collider c) => { EnableAttackHeroBehavior();};
-      _triggerObserver.OnExitedTrigger += (Collider c) => { DisableAttackHeroBehavior();};
+      _triggerObserver.OnEnteredTrigger += (Collider c) => { EnableAttackBehavior(); };
+      _triggerObserver.OnExitedTrigger += (Collider c) => { DisableAttackBehavior(); };
 
-      DisableAttackHeroBehavior();
+      DisableAttackBehavior();
     }
 
-    private void EnableAttackHeroBehavior() =>
-      _attackHeroBehavior.enabled = true;
+    private void EnableAttackBehavior() =>
+      _attackBehavior.enabled = true;
 
-    private void DisableAttackHeroBehavior() =>
-      _attackHeroBehavior.enabled = false;
+    private void DisableAttackBehavior() =>
+      _attackBehavior.enabled = false;
   }
 }

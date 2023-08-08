@@ -17,6 +17,8 @@ namespace UndeadHero.Character.Animation {
 
     [SerializeField] private Animator _animator;
 
+    public AnimatorState State { get; private set; }
+
     public event Action<AnimatorState> StateEnteredCallbacks;
     public event Action<AnimatorState> StateExitedCallbacks;
 
@@ -37,8 +39,10 @@ namespace UndeadHero.Character.Animation {
 
     public void GetHit() => _animator.SetTrigger(GetHitTrigger);
 
-    public void OnStateEntered(int stateHash) =>
-      StateEnteredCallbacks?.Invoke(HashToState(stateHash));
+    public void OnStateEntered(int stateHash) {
+      State = HashToState(stateHash);
+      StateEnteredCallbacks?.Invoke(State);
+    }
 
     public void OnStateExited(int stateHash) =>
       StateExitedCallbacks?.Invoke(HashToState(stateHash));

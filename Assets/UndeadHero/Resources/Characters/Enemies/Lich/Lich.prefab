@@ -967,7 +967,7 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier:
   _triggerObserver: {fileID: 5791678385127785993}
-  _attackHeroBehavior: {fileID: 4968082044736796800}
+  _attackBehavior: {fileID: 4968082044736796800}
 --- !u!114 &8289588766154890682
 MonoBehaviour:
   m_ObjectHideFlags: 0
