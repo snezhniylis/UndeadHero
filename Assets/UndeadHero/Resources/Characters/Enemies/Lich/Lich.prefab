@@ -1001,6 +1001,7 @@ MonoBehaviour:
   _characterAnimator: {fileID: -3351393286428690445}
   _deathFx: {fileID: 100004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
   _followHeroBehavior: {fileID: -3043759592026499101}
+  _attackBehavior: {fileID: 4968082044736796800}
 --- !u!1 &3745852832802683827
 GameObject:
   m_ObjectHideFlags: 0

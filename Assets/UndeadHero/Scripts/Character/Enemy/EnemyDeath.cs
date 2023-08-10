@@ -8,9 +8,12 @@ namespace UndeadHero.Character.Enemy {
 
     [SerializeField]
     private EnemyFollowHero _followHeroBehavior;
+    [SerializeField]
+    private EnemyAttack _attackBehavior;
 
     protected override void ApplyDeathEffect() {
       _followHeroBehavior.enabled = false;
+      _attackBehavior.enabled = false;
 
       StartCoroutine(SelfDestroyRoutine());
     }
