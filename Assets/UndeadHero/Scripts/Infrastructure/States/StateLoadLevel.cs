@@ -49,7 +49,7 @@ namespace UndeadHero.Infrastructure.States {
       _gameFactory.CreateHero(GameObject.FindWithTag(PlayerSpawnPointTag));
 
     private void InitializeHud(GameObject hero) {
-      var hud = _gameFactory.CreateHud().GetComponent<Hud>();
+      var hud = _gameFactory.CreateHud().GetComponent<GlobalHud>();
       hud.Initialize(hero.GetComponent<HeroHealth>());
     }
 
