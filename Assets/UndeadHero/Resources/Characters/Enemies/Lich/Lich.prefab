@@ -825,7 +825,6 @@ GameObject:
   - component: {fileID: -3043759592026499101}
   - component: {fileID: 6247740970009251524}
   - component: {fileID: 4968082044736796800}
-  - component: {fileID: 897035598618750631}
   - component: {fileID: 3654478754692776007}
   - component: {fileID: 8289588766154890682}
   - component: {fileID: 4186812155395838471}
@@ -956,20 +955,7 @@ MonoBehaviour:
   _attackImpactOrigin: {x: 0, y: 0.6, z: 1}
   _attackImpactRadius: 0.6
   _damage: 10
---- !u!114 &897035598618750631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83edd9ad98b043449b1daad6cf27c4b2, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  _triggerObserver: {fileID: 5791678385127785993}
-  _attackBehavior: {fileID: 4968082044736796800}
+  _attackRangeTrigger: {fileID: 5791678385127785993}
 --- !u!136 &3654478754692776007
 CapsuleCollider:
   m_ObjectHideFlags: 0

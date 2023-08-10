@@ -8,15 +8,21 @@ namespace UndeadHero.Character.Enemy {
     private const string TargetCollisionLayerName = "Hero";
     private const int MaxTargetsHitAtOnce = 1;
 
-    private IGameFactory _factory;
+    [SerializeField]
+    private TriggerObserver _attackRangeTrigger;
+
     private Transform _heroTransform;
+    private bool _isHeroClose;
 
     protected override void Awake() {
       base.Awake();
 
-      _factory = GameServices.Container.Single<IGameFactory>();
-      _factory.OnHeroCreated += () => {
-        _heroTransform = _factory.HeroGameObject.transform;
+      _attackRangeTrigger.OnEnteredTrigger += (Collider c) => _isHeroClose = true;
+      _attackRangeTrigger.OnExitedTrigger += (Collider c) => _isHeroClose = false;
+
+      var factory = GameServices.Container.Single<IGameFactory>();
+      factory.OnHeroCreated += () => {
+        _heroTransform = factory.HeroGameObject.transform;
       };
     }
 
@@ -26,7 +32,7 @@ namespace UndeadHero.Character.Enemy {
     }
 
     protected override bool ShouldAttack() =>
-      true;
+      _isHeroClose;
 
     protected override Vector3 GetAttackTarget() =>
       _heroTransform.position;
