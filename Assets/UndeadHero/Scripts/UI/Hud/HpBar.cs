@@ -1,11 +1,10 @@
-using UndeadHero.Character;
+using UndeadHero.Character.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UndeadHero.UI.Hud {
   public class HpBar : MonoBehaviour {
-    [SerializeField]
-    private Image _barFill;
+    [SerializeField] private Image _barFill;
 
     private CharacterHealth _characterHealth;
 

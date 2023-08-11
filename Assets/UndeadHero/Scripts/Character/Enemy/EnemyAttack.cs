@@ -1,5 +1,6 @@
-using UndeadHero.Infrastructure.Factory;
+using UndeadHero.Character.Base;
 using UndeadHero.Infrastructure.Services;
+using UndeadHero.Infrastructure.Services.Factory;
 using UnityEngine;
 
 namespace UndeadHero.Character.Enemy {
@@ -8,8 +9,7 @@ namespace UndeadHero.Character.Enemy {
     private const string TargetCollisionLayerName = "Hero";
     private const int MaxTargetsHitAtOnce = 1;
 
-    [SerializeField]
-    private TriggerObserver _attackRangeTrigger;
+    [SerializeField] private TriggerObserver _attackRangeTrigger;
 
     private Transform _heroTransform;
     private bool _isHeroClose;
@@ -17,13 +17,11 @@ namespace UndeadHero.Character.Enemy {
     protected override void Awake() {
       base.Awake();
 
-      _attackRangeTrigger.OnEnteredTrigger += (Collider c) => _isHeroClose = true;
-      _attackRangeTrigger.OnExitedTrigger += (Collider c) => _isHeroClose = false;
+      _attackRangeTrigger.OnEnteredTrigger += (_) => _isHeroClose = true;
+      _attackRangeTrigger.OnExitedTrigger += (_) => _isHeroClose = false;
 
       var factory = GameServices.Container.Single<IGameFactory>();
-      factory.OnHeroCreated += () => {
-        _heroTransform = factory.HeroGameObject.transform;
-      };
+      factory.OnHeroCreated += () => { _heroTransform = factory.HeroGameObject.transform; };
     }
 
     protected override void InitializeCollisionParameters() {

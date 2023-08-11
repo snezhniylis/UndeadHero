@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace UndeadHero.Character {
+namespace UndeadHero.Character.Base {
   [RequireComponent(typeof(Collider))]
   public class TriggerObserver : MonoBehaviour {
     public event Action<Collider> OnEnteredTrigger;

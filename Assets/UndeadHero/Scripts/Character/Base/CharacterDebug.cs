@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UndeadHero.Character {
+namespace UndeadHero.Character.Base {
   public static class CharacterDebug {
     public static void DrawRaysTimed(Vector3 worldPosition, float radius, float displayTime) {
       Debug.DrawRay(worldPosition, radius * Vector3.up, Color.red, displayTime);

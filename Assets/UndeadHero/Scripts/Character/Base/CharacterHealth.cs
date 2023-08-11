@@ -1,16 +1,19 @@
 using System;
-using UndeadHero.Character.Animation;
+using UndeadHero.Character.Base.Animation;
 using UnityEngine;
 
-namespace UndeadHero.Character {
+namespace UndeadHero.Character.Base {
   public abstract class CharacterHealth : MonoBehaviour {
-    [SerializeField]
-    private CharacterAnimator _characterAnimator;
+    [SerializeField] private CharacterAnimator _characterAnimator;
 
-    [SerializeField]
-    private float _currentHealth;
-    [field: SerializeField]
-    public float Max { get; protected set; }
+    [SerializeField] private float _maxHealth;
+    [SerializeField] private float _currentHealth;
+
+    public float Max {
+      get => _maxHealth;
+      protected set => _maxHealth = value;
+    }
+
     public float Current {
       get => _currentHealth;
       protected set {

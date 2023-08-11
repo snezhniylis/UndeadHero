@@ -2,20 +2,15 @@ using UndeadHero.Infrastructure.Services;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
 
-namespace UndeadHero.Logic {
+namespace UndeadHero.Level {
   [RequireComponent(typeof(BoxCollider))]
   public class SaveProgressTrigger : MonoBehaviour {
     private IPersistentProgressService _progressService;
 
     [SerializeField] private BoxCollider _collider;
 
-    private void OnValidate() {
-      _collider = GetComponent<BoxCollider>();
-    }
-
-    private void Awake() {
+    private void Awake() =>
       _progressService = GameServices.Container.Single<IPersistentProgressService>();
-    }
 
     private void OnTriggerEnter(Collider other) {
       _progressService.SaveProgress();

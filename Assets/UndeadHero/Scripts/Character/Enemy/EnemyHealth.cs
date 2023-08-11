@@ -1,5 +1,4 @@
-using System;
-using UndeadHero.Character.Hero;
+using UndeadHero.Character.Base;
 using UnityEngine;
 
 namespace UndeadHero.Character.Enemy {

@@ -5,12 +5,11 @@ namespace UndeadHero.Infrastructure.Services.Input {
     public override Vector2 MovementAxis {
       get {
         Vector2 axis = base.MovementAxis;
-        return (axis == Vector2.zero) ? GetStandaloneInputAxis() : axis;
+        return axis == Vector2.zero ? GetStandaloneInputAxis() : axis;
       }
     }
 
-    private static Vector2 GetStandaloneInputAxis() {
-      return new Vector2(UnityEngine.Input.GetAxis(XAxisId), UnityEngine.Input.GetAxis(YAxisId));
-    }
+    private static Vector2 GetStandaloneInputAxis() =>
+      new(UnityEngine.Input.GetAxis(XAxisId), UnityEngine.Input.GetAxis(YAxisId));
   }
 }

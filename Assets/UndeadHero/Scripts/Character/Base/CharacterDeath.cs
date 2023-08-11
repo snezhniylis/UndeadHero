@@ -1,16 +1,13 @@
-using UndeadHero.Character.Animation;
+using UndeadHero.Character.Base.Animation;
 using UnityEngine;
 
-namespace UndeadHero.Character {
+namespace UndeadHero.Character.Base {
   [RequireComponent(typeof(CharacterHealth), typeof(CharacterAnimator))]
   public abstract class CharacterDeath : MonoBehaviour {
-    [SerializeField]
-    private CharacterHealth _characterHealth;
-    [SerializeField]
-    private CharacterAnimator _characterAnimator;
+    [SerializeField] private CharacterHealth _characterHealth;
+    [SerializeField] private CharacterAnimator _characterAnimator;
 
-    [SerializeField]
-    private GameObject _deathFx;
+    [SerializeField] private GameObject _deathFx;
 
     private void OnEnable() =>
       _characterHealth.OnHealthChanged += OnHealthChanged;

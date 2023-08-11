@@ -8,7 +8,7 @@ namespace UndeadHero.Infrastructure.Services.SaveManagement {
 
     public T Load<T>(string key) {
       string value = PlayerPrefs.GetString(key);
-      return (value != null) ? value.ToDeserialized<T>() : default;
+      return value != null ? value.ToDeserialized<T>() : default;
     }
   }
 }

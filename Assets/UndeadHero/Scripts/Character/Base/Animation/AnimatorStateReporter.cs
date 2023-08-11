@@ -1,19 +1,19 @@
 using UnityEngine;
 
-namespace UndeadHero.Character.Animation {
+namespace UndeadHero.Character.Base.Animation {
   public class AnimatorStateReporter : StateMachineBehaviour {
     private IAnimationStateReader _stateReader;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
       base.OnStateEnter(animator, stateInfo, layerIndex);
       FindReader(animator);
-      _stateReader.OnStateEntered(stateInfo.shortNameHash);
+      _stateReader.BroadcastStateEntered(stateInfo.shortNameHash);
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
       base.OnStateExit(animator, stateInfo, layerIndex);
       FindReader(animator);
-      _stateReader.OnStateExited(stateInfo.shortNameHash);
+      _stateReader.BroadcastStateExited(stateInfo.shortNameHash);
     }
 
     private void FindReader(Animator animator) =>

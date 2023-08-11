@@ -1403,8 +1403,8 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier:
   _characterAnimator: {fileID: 1067017107}
+  _maxHealth: 0
   _currentHealth: 0
-  <Max>k__BackingField: 0
 --- !u!114 &5609067691812827342
 MonoBehaviour:
   m_ObjectHideFlags: 0

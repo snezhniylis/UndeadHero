@@ -1,5 +1,5 @@
 namespace UndeadHero.Infrastructure.States {
-  class StateGameLoop : IState {
+  public class StateGameLoop : IState {
     private readonly GameStateMachine _stateMachine;
 
     public StateGameLoop(GameStateMachine stateMachine) {

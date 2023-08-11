@@ -1,16 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
-namespace UndeadHero.Infrastructure {
+namespace UndeadHero.UI.LoadingScreen {
   public class LoadingScreen : MonoBehaviour {
-    [SerializeField]
-    private float _fadeSpeed = 1f;
-    [SerializeField]
-    private CanvasGroup _canvasGroup;
+    [SerializeField] private float _fadeSpeed = 1f;
+    [SerializeField] private CanvasGroup _canvasGroup;
 
-    void Awake() {
+    private void Awake() =>
       DontDestroyOnLoad(this);
-    }
 
     public void Show() {
       gameObject.SetActive(true);
@@ -25,6 +22,7 @@ namespace UndeadHero.Infrastructure {
         _canvasGroup.alpha -= _fadeSpeed * Time.deltaTime;
         yield return null;
       }
+
       gameObject.SetActive(false);
     }
   }

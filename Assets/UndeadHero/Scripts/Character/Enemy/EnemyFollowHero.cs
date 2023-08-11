@@ -1,5 +1,5 @@
-using UndeadHero.Infrastructure.Factory;
 using UndeadHero.Infrastructure.Services;
+using UndeadHero.Infrastructure.Services.Factory;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,15 +8,10 @@ namespace UndeadHero.Character.Enemy {
   public class EnemyFollowHero : MonoBehaviour {
     private const float MinimumDistance = 1.5f;
 
-    [SerializeField]
-    private NavMeshAgent _agent;
+    [SerializeField] private NavMeshAgent _agent;
 
     private IGameFactory _factory;
     private Transform _heroTransform;
-
-    private void OnValidate() {
-      _agent = GetComponent<NavMeshAgent>();
-    }
 
     private void Start() {
       _factory = GameServices.Container.Single<IGameFactory>();
@@ -28,9 +23,8 @@ namespace UndeadHero.Character.Enemy {
       }
     }
 
-    private void Update() {
+    private void Update() =>
       FollowHero();
-    }
 
     private void FollowHero() {
       if (IsHeroTransformCached() && CanComeCloser()) {

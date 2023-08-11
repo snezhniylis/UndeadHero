@@ -1,9 +1,9 @@
 using System;
-using UnityEngine;
-using UndeadHero.Infrastructure.AssetManagement;
+using UndeadHero.Infrastructure.Services.AssetManagement;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
+using UnityEngine;
 
-namespace UndeadHero.Infrastructure.Factory {
+namespace UndeadHero.Infrastructure.Services.Factory {
   public class GameFactory : IGameFactory {
     private readonly IAssetProvider _assetProvider;
     private readonly IPersistentProgressService _persistentProgress;

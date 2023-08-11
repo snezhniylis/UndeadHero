@@ -11,11 +11,10 @@ namespace UndeadHero.Infrastructure {
       _coroutineRunner = coroutineRunner;
     }
 
-    public void Load(string name, Action onLoaded = null) {
+    public void Load(string name, Action onLoaded = null) =>
       _coroutineRunner.StartCoroutine(LoadScene(name, onLoaded));
-    }
 
-    private IEnumerator LoadScene(string name, Action onLoaded) {
+    private static IEnumerator LoadScene(string name, Action onLoaded) {
       if (SceneManager.GetActiveScene().name != name) {
         AsyncOperation sceneLoading = SceneManager.LoadSceneAsync(name);
         while (!sceneLoading.isDone) {

@@ -10,25 +10,32 @@ namespace UndeadHero.Character.Hero {
   public class HeroMover : MonoBehaviour, IPersistentProgressWriter {
     private static readonly Vector3 PrecautionaryWarpHeightOffset = new(0, 0.5f, 0);
 
-    [SerializeField]
-    private CharacterController _characterController;
-    [SerializeField]
-    private float _movementSpeed = 4.0f;
+    [SerializeField] private CharacterController _characterController;
+    [SerializeField] private float _movementSpeed = 4.0f;
 
     private IInputService _inputService;
     private Camera _camera;
-
-    private void OnValidate() {
-      _characterController = GetComponent<CharacterController>();
-    }
 
     private void Awake() {
       _inputService = GameServices.Container.Single<IInputService>();
       _camera = Camera.main;
     }
 
-    private void Update() {
+    private void Update() =>
       UpdateMovement();
+
+    public void UpdateProgress(PlayerProgress progress) {
+      progress.WorldData.Level = GetCurrentLevelName();
+      progress.WorldData.PlayerPosition = transform.position.AsVectorData();
+    }
+
+    public void LoadProgress(PlayerProgress progress) {
+      if (GetCurrentLevelName() == progress.WorldData.Level) {
+        Vector3Data savedPosition = progress.WorldData.PlayerPosition;
+        if (savedPosition != null) {
+          Warp(savedPosition.AsUnityVector());
+        }
+      }
     }
 
     private void UpdateMovement() {
@@ -65,21 +72,7 @@ namespace UndeadHero.Character.Hero {
 
     private static float EaseOutCubic(float value) {
       value--;
-      return (value * value * value + 1);
-    }
-
-    public void UpdateProgress(PlayerProgress progress) {
-      progress.WorldData.Level = GetCurrentLevelName();
-      progress.WorldData.PlayerPosition = transform.position.AsVectorData();
-    }
-
-    public void LoadProgress(PlayerProgress progress) {
-      if (GetCurrentLevelName() == progress.WorldData.Level) {
-        Vector3Data savedPosition = progress.WorldData.PlayerPosition;
-        if (savedPosition != null) {
-          Warp(savedPosition.AsUnityVector());
-        }
-      }
+      return value * value * value + 1;
     }
 
     private void Warp(Vector3 position) {

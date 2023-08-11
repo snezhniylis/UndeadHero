@@ -1,12 +1,13 @@
 using UndeadHero.CameraLogic;
 using UndeadHero.Character.Hero;
-using UndeadHero.Infrastructure.Factory;
+using UndeadHero.Infrastructure.Services.Factory;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
 using UndeadHero.UI.Hud;
+using UndeadHero.UI.LoadingScreen;
 using UnityEngine;
 
 namespace UndeadHero.Infrastructure.States {
-  class StateLoadLevel : IStatePayloaded<string> {
+  public class StateLoadLevel : IStatePayloaded<string> {
     private const string PlayerSpawnPointTag = "PlayerSpawnPoint";
 
     private readonly GameStateMachine _stateMachine;
@@ -40,7 +41,7 @@ namespace UndeadHero.Infrastructure.States {
 
     private void InitializeLevelEntities() {
       GameObject hero = InitializeHero();
-      SetCameraFollowTarget(hero);
+      SetMainCameraTarget(hero);
 
       InitializeHud(hero);
     }
@@ -49,14 +50,13 @@ namespace UndeadHero.Infrastructure.States {
       _gameFactory.CreateHero(GameObject.FindWithTag(PlayerSpawnPointTag));
 
     private void InitializeHud(GameObject hero) {
-      var hud = _gameFactory.CreateHud().GetComponent<GlobalHud>();
+      var hud = _gameFactory.CreateHud().GetComponent<PlayerHud>();
       hud.Initialize(hero.GetComponent<HeroHealth>());
     }
 
-    private void SetCameraFollowTarget(GameObject target) {
-      if (Camera.main.TryGetComponent<CameraMover>(out var cameraMover)) {
-        cameraMover.SetTarget(target);
-      }
+    private static void SetMainCameraTarget(GameObject target) {
+      var followTargetBehavior = Camera.main.GetComponent<CameraFollowTarget>();
+      followTargetBehavior.SetTarget(target);
     }
   }
 }

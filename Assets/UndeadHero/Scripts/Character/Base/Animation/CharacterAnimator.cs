@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace UndeadHero.Character.Animation {
+namespace UndeadHero.Character.Base.Animation {
   [RequireComponent(typeof(Animator))]
   public abstract class CharacterAnimator : MonoBehaviour, IAnimationStateReader {
     private static readonly int IsMoving = Animator.StringToHash("isMoving");
@@ -19,12 +19,16 @@ namespace UndeadHero.Character.Animation {
 
     public AnimatorState State { get; private set; }
 
-    public event Action<AnimatorState> StateEnteredCallbacks;
-    public event Action<AnimatorState> StateExitedCallbacks;
+    public event Action<AnimatorState> OnStateEntered;
+    public event Action<AnimatorState> OnStateExited;
 
-    protected virtual void OnValidate() {
-      _animator = GetComponent<Animator>();
+    public void BroadcastStateEntered(int stateHash) {
+      State = HashToState(stateHash);
+      OnStateEntered?.Invoke(State);
     }
+
+    public void BroadcastStateExited(int stateHash) =>
+      OnStateExited?.Invoke(HashToState(stateHash));
 
     public void Move(float speed) {
       _animator.SetBool(IsMoving, true);
@@ -39,15 +43,7 @@ namespace UndeadHero.Character.Animation {
 
     public void GetHit() => _animator.SetTrigger(GetHitTrigger);
 
-    public void OnStateEntered(int stateHash) {
-      State = HashToState(stateHash);
-      StateEnteredCallbacks?.Invoke(State);
-    }
-
-    public void OnStateExited(int stateHash) =>
-      StateExitedCallbacks?.Invoke(HashToState(stateHash));
-
-    private AnimatorState HashToState(int stateHash) {
+    private static AnimatorState HashToState(int stateHash) {
       if (stateHash == IdleState)
         return AnimatorState.Idle;
       if (stateHash == MoveState)

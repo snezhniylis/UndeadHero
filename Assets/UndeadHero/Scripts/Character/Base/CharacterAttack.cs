@@ -1,23 +1,16 @@
-using UndeadHero.Character.Animation;
+using UndeadHero.Character.Base.Animation;
 using UnityEngine;
 
-namespace UndeadHero.Character {
+namespace UndeadHero.Character.Base {
   public abstract class CharacterAttack : MonoBehaviour {
     private const string HitTargetAnimationEvent = "HitTarget";
 
-    [SerializeField]
-    private CharacterAnimator _characterAnimator;
+    [SerializeField] private CharacterAnimator _characterAnimator;
 
-    [SerializeField]
-    private float _attackCooldown;
-    [SerializeField]
-    private Vector3 _attackImpactOrigin;
-    [SerializeField]
-    private float _attackImpactRadius;
-    [SerializeField]
-    private float _damage;
-
-    private float _cooldownExpirationTime;
+    [SerializeField] private float _attackCooldown;
+    [SerializeField] private Vector3 _attackImpactOrigin;
+    [SerializeField] private float _attackImpactRadius;
+    [SerializeField] private float _damage;
 
     protected int HitCollisionMask;
     protected Collider[] HitCollidersBuffer;
@@ -26,9 +19,10 @@ namespace UndeadHero.Character {
     protected abstract Vector3 GetAttackTarget();
     protected abstract bool ShouldAttack();
 
-    protected virtual void Awake() {
+    private float _cooldownExpirationTime;
+
+    protected virtual void Awake() =>
       InitializeCollisionParameters();
-    }
 
     private void Update() {
       if (ShouldAttack() && CanAttack()) {
@@ -48,9 +42,10 @@ namespace UndeadHero.Character {
     private void ProcessHit() {
       int targetsHitCount = PerformHitDetection();
       if (targetsHitCount > 0) {
-        for (int i = 0; i < targetsHitCount; i++) {
+        for (var i = 0; i < targetsHitCount; i++) {
           HitCollidersBuffer[i].transform.GetComponent<CharacterHealth>().TakeDamage(_damage);
         }
+
         CharacterDebug.DrawRaysTimed(LocalToWorld(_attackImpactOrigin), _attackImpactRadius, 0.5f);
       }
     }

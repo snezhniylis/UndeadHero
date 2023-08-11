@@ -1,27 +1,21 @@
 using System.Collections;
+using UndeadHero.Character.Base;
 using UnityEngine;
 
 namespace UndeadHero.Character.Enemy {
   [RequireComponent(typeof(EnemyFollowHero))]
   public class EnemyAggro : MonoBehaviour {
-    [SerializeField]
-    private TriggerObserver _triggerObserver;
-    [SerializeField]
-    private EnemyFollowHero _followHeroBehavior;
+    [SerializeField] private TriggerObserver _triggerObserver;
+    [SerializeField] private EnemyFollowHero _followHeroBehavior;
 
-    [SerializeField]
-    private float _interestLossSpan;
+    [SerializeField] private float _interestLossSpan;
 
     private WaitForSeconds _interestLossSeconds;
     private bool _isFollowingHero;
 
-    private void OnValidate() {
-      _followHeroBehavior = GetComponent<EnemyFollowHero>();
-    }
-
     private void Awake() {
-      _triggerObserver.OnEnteredTrigger += (Collider c) => { StartFollowingHero(); };
-      _triggerObserver.OnExitedTrigger += (Collider c) => { StopFollowingHero(); };
+      _triggerObserver.OnEnteredTrigger += (_) => StartFollowingHero();
+      _triggerObserver.OnExitedTrigger += (_) => StopFollowingHero();
 
       _interestLossSeconds = new WaitForSeconds(_interestLossSpan);
 

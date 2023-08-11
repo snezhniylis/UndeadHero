@@ -15,7 +15,6 @@ namespace UndeadHero.Infrastructure.States {
       _gameStateMachine.Enter<StateLoadLevel, string>(_progressService.Progress.WorldData.Level);
     }
 
-    public void Exit() {
-    }
+    public void Exit() { }
   }
 }

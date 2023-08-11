@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UndeadHero.Infrastructure.AssetManagement {
+namespace UndeadHero.Infrastructure.Services.AssetManagement {
   public class AssetProvider : IAssetProvider {
     public GameObject Instantiate(string path) =>
       Instantiate(path, Vector3.zero, Quaternion.identity);

@@ -1,10 +1,10 @@
 using UnityEngine;
 using UndeadHero.Infrastructure.States;
+using UndeadHero.UI.LoadingScreen;
 
 namespace UndeadHero.Infrastructure {
   public class GameBootstrapper : MonoBehaviour, ICoroutineRunner {
-    [SerializeField]
-    private LoadingScreen _loadingScreenPrefab;
+    [SerializeField] private LoadingScreen _loadingScreenPrefab;
 
     private Game _game;
 

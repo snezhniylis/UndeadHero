@@ -985,8 +985,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterAnimator: {fileID: -3351393286428690445}
+  _maxHealth: 50
   _currentHealth: 50
-  <Max>k__BackingField: 50
 --- !u!114 &4186812155395838471
 MonoBehaviour:
   m_ObjectHideFlags: 0

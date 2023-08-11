@@ -1,3 +1,4 @@
+using UndeadHero.Character.Base;
 using UndeadHero.Data;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
 using UnityEngine;

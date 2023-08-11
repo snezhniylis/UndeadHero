@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using UndeadHero.Infrastructure.Factory;
 using UndeadHero.Infrastructure.Services;
+using UndeadHero.Infrastructure.Services.Factory;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
+using UndeadHero.UI.LoadingScreen;
 
 namespace UndeadHero.Infrastructure.States {
   public class GameStateMachine {
@@ -26,13 +27,12 @@ namespace UndeadHero.Infrastructure.States {
 
     private TState ChangeState<TState>() where TState : class, IStateBase {
       _activeState?.Exit();
-      TState state = GetState<TState>();
+      var state = GetState<TState>();
       _activeState = state;
       return state;
     }
 
-    private TState GetState<TState>() where TState : class, IStateBase {
-      return _states[typeof(TState)] as TState;
-    }
+    private TState GetState<TState>() where TState : class, IStateBase =>
+      _states[typeof(TState)] as TState;
   }
 }

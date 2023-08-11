@@ -1,10 +1,10 @@
 using UnityEngine;
 using UndeadHero.Infrastructure.Services;
+using UndeadHero.Infrastructure.Services.AssetManagement;
+using UndeadHero.Infrastructure.Services.Factory;
 using UndeadHero.Infrastructure.Services.Input;
 using UndeadHero.Infrastructure.Services.SaveManagement;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
-using UndeadHero.Infrastructure.Factory;
-using UndeadHero.Infrastructure.AssetManagement;
 
 namespace UndeadHero.Infrastructure.States {
   public class StateBootstrap : IState {
@@ -38,8 +38,7 @@ namespace UndeadHero.Infrastructure.States {
       _gameServices.RegisterSingle<IGameFactory>(new GameFactory(_gameServices.Single<IAssetProvider>(), _gameServices.Single<IPersistentProgressService>()));
     }
 
-    private static IInputService InitializeInputService() {
-      return Application.isEditor ? new DebugInputService() : new MobileInputService();
-    }
+    private static IInputService InitializeInputService() =>
+      Application.isEditor ? new DebugInputService() : new MobileInputService();
   }
 }

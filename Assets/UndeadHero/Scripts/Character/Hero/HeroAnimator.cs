@@ -1,19 +1,13 @@
+using UndeadHero.Character.Base.Animation;
 using UnityEngine;
-using UndeadHero.Character.Animation;
 
 namespace UndeadHero.Character.Hero {
   [RequireComponent(typeof(CharacterController))]
   public class HeroAnimator : CharacterAnimator {
-    [SerializeField]
-    private CharacterController _characterController;
+    [SerializeField] private CharacterController _characterController;
 
-    protected override void OnValidate() {
-      _characterController = GetComponent<CharacterController>();
-    }
-
-    private void Update() {
+    private void Update() =>
       AnimateHeroMovement();
-    }
 
     private void AnimateHeroMovement() {
       Vector3 heroVelocity = _characterController.velocity;

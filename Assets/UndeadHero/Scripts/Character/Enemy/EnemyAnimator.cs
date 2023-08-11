@@ -1,17 +1,11 @@
-using UndeadHero.Character.Animation;
+using UndeadHero.Character.Base.Animation;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace UndeadHero.Character.Enemy {
   [RequireComponent(typeof(NavMeshAgent))]
   public class EnemyAnimator : CharacterAnimator {
-    [SerializeField]
-    private NavMeshAgent _navMeshAgent;
-
-    protected override void OnValidate() {
-      base.OnValidate();
-      _navMeshAgent = GetComponent<NavMeshAgent>();
-    }
+    [SerializeField] private NavMeshAgent _navMeshAgent;
 
     private void Update() {
       float enemySpeed = _navMeshAgent.velocity.magnitude;
