@@ -8,12 +8,12 @@ charset = utf-8
 indent_style = space
 indent_size = 2
 insert_final_newline = true
-trim_trailing_whitespace = true
 
 [*.sln]
 indent_style = tab
 
 [*.cs]
+trim_trailing_whitespace = true
 csharp_new_line_before_open_brace = none
 csharp_space_between_method_declaration_name_and_open_parenthesis = false
 
