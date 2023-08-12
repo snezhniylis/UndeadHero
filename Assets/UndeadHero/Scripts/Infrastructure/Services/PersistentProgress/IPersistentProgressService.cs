@@ -1,13 +1,12 @@
 using UndeadHero.Data;
+using UnityEngine;
 
 namespace UndeadHero.Infrastructure.Services.PersistentProgress {
   public interface IPersistentProgressService : IService {
-    PlayerProgress Progress { get; }
-
-    void InitializeProgress();
+    PlayerProgress LoadSavedProgress();
     void SaveProgress();
-    void LoadProgress();
-    void AddSubscriber(IPersistentProgressReader progressReader);
-    void ClearSubscribers();
+    void RestoreProgress();
+    void CleanUp();
+    void BindSceneObject(GameObject gameObject);
   }
 }

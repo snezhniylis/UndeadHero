@@ -5,6 +5,7 @@ using UndeadHero.Infrastructure.Services.Factory;
 using UndeadHero.Infrastructure.Services.Input;
 using UndeadHero.Infrastructure.Services.SaveManagement;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
+using UndeadHero.Infrastructure.Services.StaticDataManagement;
 
 namespace UndeadHero.Infrastructure.States {
   public class StateBootstrap : IState {
@@ -32,10 +33,11 @@ namespace UndeadHero.Infrastructure.States {
 
     private void RegisterGameServices() {
       _gameServices.RegisterSingle<IInputService>(InitializeInputService());
+      _gameServices.RegisterSingle<IStaticDataProvider>(new StaticDataProvider());
       _gameServices.RegisterSingle<ISaveManager>(new SaveManager());
       _gameServices.RegisterSingle<IPersistentProgressService>(new PersistentProgressService(_gameServices.Single<ISaveManager>()));
       _gameServices.RegisterSingle<IAssetProvider>(new AssetProvider());
-      _gameServices.RegisterSingle<IGameFactory>(new GameFactory(_gameServices.Single<IAssetProvider>(), _gameServices.Single<IPersistentProgressService>()));
+      _gameServices.RegisterSingle<IGameFactory>(new GameFactory(_gameServices.Single<IAssetProvider>(), _gameServices.Single<IPersistentProgressService>(), _gameServices.Single<IStaticDataProvider>()));
     }
 
     private static IInputService InitializeInputService() =>

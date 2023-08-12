@@ -6,12 +6,14 @@ using UnityEngine;
 namespace UndeadHero.Character.Hero {
   [RequireComponent(typeof(HeroAnimator))]
   public class HeroHealth : CharacterHealth, IPersistentProgressWriter {
-    public void LoadProgress(PlayerProgress progress) {
-      Max = progress.HeroData.MaxHp;
-      Current = progress.HeroData.CurrentHp;
+    public void ReadProgress(PlayerProgress progress) {
+      if (progress != null) {
+        Max = progress.HeroData.MaxHp;
+        Current = progress.HeroData.CurrentHp;
+      }
     }
 
-    public void UpdateProgress(PlayerProgress progress) {
+    public void WriteProgress(PlayerProgress progress) {
       progress.HeroData.MaxHp = Max;
       progress.HeroData.CurrentHp = Current;
     }

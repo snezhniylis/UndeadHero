@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - PlayerSpawnPoint
+  - EnemySpawner
   layers:
   - Default
   - TransparentFX

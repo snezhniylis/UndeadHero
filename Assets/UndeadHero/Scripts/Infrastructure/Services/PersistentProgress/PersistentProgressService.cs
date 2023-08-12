@@ -1,59 +1,56 @@
 using System.Collections.Generic;
 using UndeadHero.Data;
 using UndeadHero.Infrastructure.Services.SaveManagement;
+using UnityEngine;
 
 namespace UndeadHero.Infrastructure.Services.PersistentProgress {
   public class PersistentProgressService : IPersistentProgressService {
-    private const string FirstPlayableSceneName = "Cemetery";
     private const string ProgressKey = "Progress";
-    private const float MaxHeroHp = 50f;
 
     private readonly List<IPersistentProgressReader> _progressReaders = new();
     private readonly List<IPersistentProgressWriter> _progressWriters = new();
 
     private readonly ISaveManager _saveManager;
 
-    public PlayerProgress Progress { get; private set; }
+    private PlayerProgress _progress;
 
     public PersistentProgressService(ISaveManager saveManager) {
       _saveManager = saveManager;
     }
 
-    public void InitializeProgress() =>
-      Progress = _saveManager.Load<PlayerProgress>(ProgressKey) ?? new PlayerProgress(FirstPlayableSceneName) {
-        HeroData = {
-          MaxHp = MaxHeroHp,
-          CurrentHp = MaxHeroHp
-        }
-      };
+    public PlayerProgress LoadSavedProgress() =>
+      _progress = _saveManager.Load<PlayerProgress>(ProgressKey);
 
     public void SaveProgress() {
-      UpdateProgress();
-      _saveManager.Save(ProgressKey, Progress);
+      _progress ??= new PlayerProgress();
+      ActualizeProgress();
+      _saveManager.Save(ProgressKey, _progress);
     }
 
-    public void LoadProgress() {
+    public void RestoreProgress() {
       foreach (IPersistentProgressReader progressReader in _progressReaders) {
-        progressReader.LoadProgress(Progress);
+        progressReader.ReadProgress(_progress);
       }
     }
 
-    public void AddSubscriber(IPersistentProgressReader progressReader) {
-      if (progressReader is IPersistentProgressWriter progressWriter) {
-        _progressWriters.Add(progressWriter);
-      }
+    public void BindSceneObject(GameObject gameObject) {
+      foreach (IPersistentProgressReader progressReader in gameObject.GetComponentsInChildren<IPersistentProgressReader>()) {
+        if (progressReader is IPersistentProgressWriter progressWriter) {
+          _progressWriters.Add(progressWriter);
+        }
 
-      _progressReaders.Add(progressReader);
+        _progressReaders.Add(progressReader);
+      }
     }
 
-    public void ClearSubscribers() {
+    public void CleanUp() {
       _progressReaders.Clear();
       _progressWriters.Clear();
     }
 
-    private void UpdateProgress() {
+    private void ActualizeProgress() {
       foreach (IPersistentProgressWriter progressWriter in _progressWriters) {
-        progressWriter.UpdateProgress(Progress);
+        progressWriter.WriteProgress(_progress);
       }
     }
   }

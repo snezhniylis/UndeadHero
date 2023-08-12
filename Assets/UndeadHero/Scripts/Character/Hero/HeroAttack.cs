@@ -11,6 +11,10 @@ namespace UndeadHero.Character.Hero {
 
     private IInputService _inputService;
 
+    public new void Initialize(float damage, float cooldown, Vector3 impactOrigin, float impactRadius) {
+      base.Initialize(damage, cooldown, impactOrigin, impactRadius);
+    }
+
     protected override void Awake() {
       base.Awake();
 

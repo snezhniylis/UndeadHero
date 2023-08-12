@@ -1,3 +1,4 @@
+using System;
 using UndeadHero.Character.Base.Animation;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ namespace UndeadHero.Character.Base {
     [SerializeField] private CharacterAnimator _characterAnimator;
 
     [SerializeField] private GameObject _deathFx;
+
+    public Action OnDied;
 
     private void OnEnable() =>
       _characterHealth.OnHealthChanged += OnHealthChanged;
@@ -27,6 +30,7 @@ namespace UndeadHero.Character.Base {
       _characterAnimator.Die();
       SpawnDeathFx();
       ApplyDeathEffect();
+      OnDied?.Invoke();
     }
 
     private void SpawnDeathFx() =>

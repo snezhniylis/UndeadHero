@@ -1,5 +1,3 @@
-using UndeadHero.Infrastructure.Services;
-using UndeadHero.Infrastructure.Services.Factory;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,35 +8,22 @@ namespace UndeadHero.Character.Enemy {
 
     [SerializeField] private NavMeshAgent _agent;
 
-    private IGameFactory _factory;
     private Transform _heroTransform;
 
-    private void Start() {
-      _factory = GameServices.Container.Single<IGameFactory>();
-      if (_factory.HeroGameObject == null) {
-        _factory.OnHeroCreated += CacheHeroTransform;
-      }
-      else {
-        CacheHeroTransform();
-      }
+    public void Initialize(Transform heroTransform) {
+      _heroTransform = heroTransform;
     }
 
     private void Update() =>
       FollowHero();
 
     private void FollowHero() {
-      if (IsHeroTransformCached() && CanComeCloser()) {
+      if (CanComeCloser()) {
         _agent.destination = _heroTransform.position;
       }
     }
 
-    private bool IsHeroTransformCached() =>
-      _heroTransform != null;
-
     private bool CanComeCloser() =>
       Vector3.Distance(transform.position, _heroTransform.position) >= MinimumDistance;
-
-    private void CacheHeroTransform() =>
-      _heroTransform = _factory.HeroGameObject.transform;
   }
 }

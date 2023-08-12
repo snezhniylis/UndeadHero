@@ -1,6 +1,4 @@
 using UndeadHero.Character.Base;
-using UndeadHero.Infrastructure.Services;
-using UndeadHero.Infrastructure.Services.Factory;
 using UnityEngine;
 
 namespace UndeadHero.Character.Enemy {
@@ -14,14 +12,16 @@ namespace UndeadHero.Character.Enemy {
     private Transform _heroTransform;
     private bool _isHeroClose;
 
+    public void Initialize(Transform heroTransform, float damage, float cooldown, Vector3 impactOrigin, float impactRadius) {
+      _heroTransform = heroTransform;
+      base.Initialize(damage, cooldown, impactOrigin, impactRadius);
+    }
+
     protected override void Awake() {
       base.Awake();
 
       _attackRangeTrigger.OnEnteredTrigger += (_) => _isHeroClose = true;
       _attackRangeTrigger.OnExitedTrigger += (_) => _isHeroClose = false;
-
-      var factory = GameServices.Container.Single<IGameFactory>();
-      factory.OnHeroCreated += () => { _heroTransform = factory.HeroGameObject.transform; };
     }
 
     protected override void InitializeCollisionParameters() {

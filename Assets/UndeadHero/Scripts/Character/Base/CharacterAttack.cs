@@ -7,10 +7,10 @@ namespace UndeadHero.Character.Base {
 
     [SerializeField] private CharacterAnimator _characterAnimator;
 
-    [SerializeField] private float _attackCooldown;
-    [SerializeField] private Vector3 _attackImpactOrigin;
-    [SerializeField] private float _attackImpactRadius;
-    [SerializeField] private float _damage;
+    private float _attackCooldown;
+    private Vector3 _attackImpactOrigin;
+    private float _attackImpactRadius;
+    private float _damage;
 
     protected int HitCollisionMask;
     protected Collider[] HitCollidersBuffer;
@@ -20,6 +20,13 @@ namespace UndeadHero.Character.Base {
     protected abstract bool ShouldAttack();
 
     private float _cooldownExpirationTime;
+
+    protected void Initialize(float damage, float cooldown, Vector3 impactOrigin, float impactRadius) {
+      _damage = damage;
+      _attackCooldown = cooldown;
+      _attackImpactOrigin = impactOrigin;
+      _attackImpactRadius = impactRadius;
+    }
 
     protected virtual void Awake() =>
       InitializeCollisionParameters();

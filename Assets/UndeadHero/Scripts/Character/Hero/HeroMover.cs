@@ -11,10 +11,15 @@ namespace UndeadHero.Character.Hero {
     private static readonly Vector3 PrecautionaryWarpHeightOffset = new(0, 0.5f, 0);
 
     [SerializeField] private CharacterController _characterController;
-    [SerializeField] private float _movementSpeed = 4.0f;
+
+    private float _movementSpeed;
 
     private IInputService _inputService;
     private Camera _camera;
+
+    public void Initialize(float movementSpeed) {
+      _movementSpeed = movementSpeed;
+    }
 
     private void Awake() {
       _inputService = GameServices.Container.Single<IInputService>();
@@ -24,16 +29,18 @@ namespace UndeadHero.Character.Hero {
     private void Update() =>
       UpdateMovement();
 
-    public void UpdateProgress(PlayerProgress progress) {
+    public void WriteProgress(PlayerProgress progress) {
       progress.WorldData.Level = GetCurrentLevelName();
       progress.WorldData.PlayerPosition = transform.position.AsVectorData();
     }
 
-    public void LoadProgress(PlayerProgress progress) {
-      if (GetCurrentLevelName() == progress.WorldData.Level) {
-        Vector3Data savedPosition = progress.WorldData.PlayerPosition;
-        if (savedPosition != null) {
-          Warp(savedPosition.AsUnityVector());
+    public void ReadProgress(PlayerProgress progress) {
+      if (progress != null) {
+        if (GetCurrentLevelName() == progress.WorldData.Level) {
+          Vector3Data savedPosition = progress.WorldData.PlayerPosition;
+          if (savedPosition != null) {
+            Warp(savedPosition.AsUnityVector());
+          }
         }
       }
     }

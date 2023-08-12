@@ -6,13 +6,9 @@ namespace UndeadHero.Character.Base {
   public abstract class CharacterHealth : MonoBehaviour {
     [SerializeField] private CharacterAnimator _characterAnimator;
 
-    [SerializeField] private float _maxHealth;
-    [SerializeField] private float _currentHealth;
+    private float _currentHealth;
 
-    public float Max {
-      get => _maxHealth;
-      protected set => _maxHealth = value;
-    }
+    public float Max { get; protected set; }
 
     public float Current {
       get => _currentHealth;
@@ -25,6 +21,11 @@ namespace UndeadHero.Character.Base {
     }
 
     public Action OnHealthChanged;
+
+    public void Initialize(float maxHealth, float currentHealth) {
+      Max = maxHealth;
+      Current = currentHealth;
+    }
 
     public void TakeDamage(float damage) {
       if (IsOutOfHp())

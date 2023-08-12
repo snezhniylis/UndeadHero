@@ -1,7 +1,10 @@
+using UndeadHero.Data;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
 
 namespace UndeadHero.Infrastructure.States {
   public class StateLoadProgress : IState {
+    private const string FirstPlayableSceneName = "Cemetery";
+
     private readonly GameStateMachine _gameStateMachine;
     private readonly IPersistentProgressService _progressService;
 
@@ -11,8 +14,10 @@ namespace UndeadHero.Infrastructure.States {
     }
 
     public void Enter() {
-      _progressService.InitializeProgress();
-      _gameStateMachine.Enter<StateLoadLevel, string>(_progressService.Progress.WorldData.Level);
+      PlayerProgress progress = _progressService.LoadSavedProgress();
+
+      string levelToLoad = progress == null ? FirstPlayableSceneName : progress.WorldData.Level;
+      _gameStateMachine.Enter<StateLoadLevel, string>(levelToLoad);
     }
 
     public void Exit() { }

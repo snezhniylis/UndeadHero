@@ -1,11 +1,10 @@
-using System;
+using UndeadHero.StaticData;
 using UnityEngine;
 
 namespace UndeadHero.Infrastructure.Services.Factory {
   public interface IGameFactory : IService {
-    public GameObject HeroGameObject { get; }
-    public event Action OnHeroCreated;
-    GameObject CreateHero(GameObject spawnPoint);
-    GameObject CreateHud();
+    GameObject CreateHero(Vector3 position, Quaternion rotation);
+    GameObject CreateEnemy(EnemyTypeId typeId, Vector3 position, Quaternion rotation, GameObject hero);
+    void CreateHud(GameObject hero);
   }
 }
