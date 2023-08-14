@@ -5,5 +5,7 @@ namespace UndeadHero.Data {
   public class HeroData {
     public float CurrentHp;
     public float MaxHp;
+
+    public int Essence;
   }
 }
