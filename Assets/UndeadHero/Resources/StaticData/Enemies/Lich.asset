@@ -20,3 +20,5 @@ MonoBehaviour:
   AttackCooldown: 3
   AttackImpactOrigin: {x: 0, y: 0.6, z: 1}
   AttackImpactRadius: 0.6
+  MinLootValue: 3
+  MaxLootValue: 9

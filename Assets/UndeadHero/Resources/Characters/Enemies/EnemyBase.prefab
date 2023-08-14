@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 8289588766154890682}
   - component: {fileID: 4186812155395838471}
   - component: {fileID: 8321549561893957694}
+  - component: {fileID: 4218649275968503912}
   m_Layer: 13
   m_Name: EnemyBase
   m_TagString: Untagged
@@ -248,6 +249,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hpBar: {fileID: 9199276535336631571}
   _characterHealth: {fileID: 8289588766154890682}
+--- !u!114 &4218649275968503912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f293677351ad42b29184727c8b511575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyDeath: {fileID: 4186812155395838471}
 --- !u!1 &1351161276671288051
 GameObject:
   m_ObjectHideFlags: 0

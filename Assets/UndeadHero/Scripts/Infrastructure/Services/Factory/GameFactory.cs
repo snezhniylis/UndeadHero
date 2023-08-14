@@ -69,10 +69,20 @@ namespace UndeadHero.Infrastructure.Services.Factory {
         hero.transform
       );
 
+      enemy.GetComponent<EnemyLootSpawner>().Initialize(
+        enemyData.MinLootValue,
+        enemyData.MaxLootValue,
+        this,
+        _randomizer
+      );
+
       enemy.GetComponent<NavMeshAgent>().speed = enemyData.MovementSpeed;
 
       return enemy;
     }
+
+    public GameObject CreateEnemyLootContainer(Vector3 position) =>
+      InstantiateByPath(AssetPaths.EnemyLootContainer, position, Quaternion.identity);
 
     public void CreateHud(GameObject hero) {
       GameObject hud = InstantiateByPath(AssetPaths.Hud);
