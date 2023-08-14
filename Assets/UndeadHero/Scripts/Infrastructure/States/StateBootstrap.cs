@@ -5,6 +5,7 @@ using UndeadHero.Infrastructure.Services.Factory;
 using UndeadHero.Infrastructure.Services.Input;
 using UndeadHero.Infrastructure.Services.SaveManagement;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
+using UndeadHero.Infrastructure.Services.Random;
 using UndeadHero.Infrastructure.Services.StaticDataManagement;
 
 namespace UndeadHero.Infrastructure.States {
@@ -37,7 +38,8 @@ namespace UndeadHero.Infrastructure.States {
       _gameServices.RegisterSingle<ISaveManager>(new SaveManager());
       _gameServices.RegisterSingle<IPersistentProgressService>(new PersistentProgressService(_gameServices.Single<ISaveManager>()));
       _gameServices.RegisterSingle<IAssetProvider>(new AssetProvider());
-      _gameServices.RegisterSingle<IGameFactory>(new GameFactory(_gameServices.Single<IAssetProvider>(), _gameServices.Single<IPersistentProgressService>(), _gameServices.Single<IStaticDataProvider>()));
+      _gameServices.RegisterSingle<IRandomizer>(new Randomizer());
+      _gameServices.RegisterSingle<IGameFactory>(new GameFactory(_gameServices.Single<IAssetProvider>(), _gameServices.Single<IPersistentProgressService>(), _gameServices.Single<IStaticDataProvider>(), _gameServices.Single<IRandomizer>()));
     }
 
     private static IInputService InitializeInputService() =>

@@ -2,6 +2,7 @@ using UndeadHero.Character.Enemy;
 using UndeadHero.Character.Hero;
 using UndeadHero.Infrastructure.Services.AssetManagement;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
+using UndeadHero.Infrastructure.Services.Random;
 using UndeadHero.Infrastructure.Services.StaticDataManagement;
 using UndeadHero.StaticData;
 using UndeadHero.UI.Hud;
@@ -13,11 +14,13 @@ namespace UndeadHero.Infrastructure.Services.Factory {
     private readonly IAssetProvider _assetProvider;
     private readonly IPersistentProgressService _persistentProgress;
     private readonly IStaticDataProvider _staticDataProvider;
+    private readonly IRandomizer _randomizer;
 
-    public GameFactory(IAssetProvider assetProvider, IPersistentProgressService persistentProgress, IStaticDataProvider staticDataProvider) {
+    public GameFactory(IAssetProvider assetProvider, IPersistentProgressService persistentProgress, IStaticDataProvider staticDataProvider, IRandomizer randomizer) {
       _assetProvider = assetProvider;
       _persistentProgress = persistentProgress;
       _staticDataProvider = staticDataProvider;
+      _randomizer = randomizer;
     }
 
     public GameObject CreateHero(Vector3 position, Quaternion rotation) {
