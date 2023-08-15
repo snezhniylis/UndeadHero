@@ -1,10 +1,21 @@
+using System;
 using UndeadHero.Data;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
 
 namespace UndeadHero.Character.Hero {
   public class HeroInventory : MonoBehaviour, IPersistentProgressWriter {
-    public int Essence { get; private set; }
+    private int _essence;
+
+    public int Essence {
+      get => _essence;
+      private set {
+        _essence = value;
+        OnEssenceAmountChanged?.Invoke(value);
+      }
+    }
+
+    public Action<int> OnEssenceAmountChanged;
 
     public void ReadProgress(PlayerProgress progress) {
       if (progress != null) {

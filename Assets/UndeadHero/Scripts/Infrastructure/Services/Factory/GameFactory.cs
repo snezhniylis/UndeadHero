@@ -88,7 +88,8 @@ namespace UndeadHero.Infrastructure.Services.Factory {
       GameObject hud = InstantiateByPath(AssetPaths.Hud);
 
       hud.GetComponent<PlayerHud>().Initialize(
-        hero.GetComponent<HeroHealth>()
+        hero.GetComponent<HeroHealth>(),
+        hero.GetComponent<HeroInventory>()
       );
     }
 
