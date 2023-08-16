@@ -8,6 +8,7 @@ namespace UndeadHero.UI.Hud {
 
     public void Initialize(HeroInventory heroInventory) {
       heroInventory.OnEssenceAmountChanged += UpdateCounter;
+      UpdateCounter(heroInventory.Essence);
     }
 
     private void UpdateCounter(int essenceAmount) =>
