@@ -4,6 +4,7 @@ using UndeadHero.Infrastructure.Services.AssetManagement;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
 using UndeadHero.Infrastructure.Services.Random;
 using UndeadHero.Infrastructure.Services.StaticDataManagement;
+using UndeadHero.Level.Spawning;
 using UndeadHero.StaticData;
 using UndeadHero.UI.Hud;
 using UnityEngine;
@@ -83,6 +84,17 @@ namespace UndeadHero.Infrastructure.Services.Factory {
 
     public GameObject CreateEnemyLootContainer(Vector3 position) =>
       InstantiateByPath(AssetPaths.EnemyLootContainer, position, Quaternion.identity);
+
+    public void CreateEnemySpawner(Vector3 position, string spawnerId, EnemyTypeId enemyId, GameObject hero) {
+      GameObject enemySpawner = InstantiateByPath(AssetPaths.EnemySpawner, position, Quaternion.identity);
+
+      enemySpawner.GetComponent<EnemySpawner>().Initialize(
+        spawnerId,
+        enemyId,
+        hero,
+        this
+      );
+    }
 
     public void CreateHud(GameObject hero) {
       GameObject hud = InstantiateByPath(AssetPaths.Hud);

@@ -1,9 +1,12 @@
 using UndeadHero.CameraLogic;
 using UndeadHero.Infrastructure.Services.Factory;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
-using UndeadHero.Level.Spawning;
+using UndeadHero.Infrastructure.Services.StaticDataManagement;
+using UndeadHero.StaticData;
+using UndeadHero.StaticData.Serializable;
 using UndeadHero.UI.LoadingScreen;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UndeadHero.Infrastructure.States {
   public class StateLoadLevel : IStatePayloaded<string> {
@@ -15,13 +18,15 @@ namespace UndeadHero.Infrastructure.States {
     private readonly LoadingScreen _loadingScreen;
     private readonly IGameFactory _gameFactory;
     private readonly IPersistentProgressService _progressService;
+    private readonly IStaticDataProvider _staticDataProvider;
 
-    public StateLoadLevel(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingScreen loadingScreen, IGameFactory gameFactory, IPersistentProgressService progressService) {
+    public StateLoadLevel(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingScreen loadingScreen, IGameFactory gameFactory, IPersistentProgressService progressService, IStaticDataProvider staticDataProvider) {
       _stateMachine = stateMachine;
       _sceneLoader = sceneLoader;
       _loadingScreen = loadingScreen;
       _gameFactory = gameFactory;
       _progressService = progressService;
+      _staticDataProvider = staticDataProvider;
     }
 
     public void Enter(string sceneName) {
@@ -54,9 +59,10 @@ namespace UndeadHero.Infrastructure.States {
     }
 
     private void InitializeEnemySpawners(GameObject hero) {
-      foreach (GameObject spawner in GameObject.FindGameObjectsWithTag(EnemySpawnerTag)) {
-        spawner.GetComponent<EnemySpawner>().Initialize(_gameFactory, hero);
-        _progressService.BindSceneObject(spawner);
+      string currentLevelName = SceneManager.GetActiveScene().name;
+      LevelStaticData levelData = _staticDataProvider.GetLevelData(currentLevelName);
+      foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners) {
+        _gameFactory.CreateEnemySpawner(spawnerData.Position, spawnerData.SpawnerId, spawnerData.EnemyTypeId, hero);
       }
     }
 

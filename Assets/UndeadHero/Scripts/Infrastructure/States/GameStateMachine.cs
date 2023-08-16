@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UndeadHero.Infrastructure.Services;
 using UndeadHero.Infrastructure.Services.Factory;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
+using UndeadHero.Infrastructure.Services.StaticDataManagement;
 using UndeadHero.UI.LoadingScreen;
 
 namespace UndeadHero.Infrastructure.States {
@@ -14,7 +15,7 @@ namespace UndeadHero.Infrastructure.States {
       _states = new Dictionary<Type, IStateBase> {
         [typeof(StateBootstrap)] = new StateBootstrap(this, sceneLoader, gameServices),
         [typeof(StateLoadProgress)] = new StateLoadProgress(this, gameServices.Single<IPersistentProgressService>()),
-        [typeof(StateLoadLevel)] = new StateLoadLevel(this, sceneLoader, loadingScreen, gameServices.Single<IGameFactory>(), gameServices.Single<IPersistentProgressService>()),
+        [typeof(StateLoadLevel)] = new StateLoadLevel(this, sceneLoader, loadingScreen, gameServices.Single<IGameFactory>(), gameServices.Single<IPersistentProgressService>(), gameServices.Single<IStaticDataProvider>()),
         [typeof(StateGameLoop)] = new StateGameLoop(this)
       };
     }

@@ -1,4 +1,3 @@
-using System;
 using UndeadHero.Character.Enemy;
 using UndeadHero.Data;
 using UndeadHero.Infrastructure.Services.Factory;
@@ -8,35 +7,32 @@ using UnityEngine;
 
 namespace UndeadHero.Level.Spawning {
   public class EnemySpawner : MonoBehaviour, IPersistentProgressWriter {
-    [SerializeField] private EnemyTypeId _enemyTypeId;
-
-    [field: SerializeField] public string Id { get; private set; }
-
-    private IGameFactory _gameFactory;
+    private string _id;
+    private EnemyTypeId _enemyTypeId;
     private GameObject _hero;
+    private IGameFactory _gameFactory;
 
     private bool _isDefeated;
 
-    public void Initialize(IGameFactory gameFactory, GameObject hero) {
-      _gameFactory = gameFactory;
+    public void Initialize(string spawnerId, EnemyTypeId enemyTypeId, GameObject hero, IGameFactory gameFactory) {
+      _id = spawnerId;
+      _enemyTypeId = enemyTypeId;
       _hero = hero;
+      _gameFactory = gameFactory;
     }
 
     public void ReadProgress(PlayerProgress progress) {
-      _isDefeated = progress != null && progress.WorldData.DefeatedSpawners.Contains(Id);
+      _isDefeated = progress != null && progress.WorldData.DefeatedSpawners.Contains(_id);
       if (!_isDefeated) {
         SpawnAssignedEnemy();
       }
     }
 
     public void WriteProgress(PlayerProgress progress) {
-      if (_isDefeated && !progress.WorldData.DefeatedSpawners.Contains(Id)) {
-        progress.WorldData.DefeatedSpawners.Add(Id);
+      if (_isDefeated && !progress.WorldData.DefeatedSpawners.Contains(_id)) {
+        progress.WorldData.DefeatedSpawners.Add(_id);
       }
     }
-
-    public void GenerateNewId() =>
-      Id = Guid.NewGuid().ToString("N");
 
     private void SpawnAssignedEnemy() {
       Transform spawnPoint = transform;
