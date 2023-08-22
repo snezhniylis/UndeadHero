@@ -1,4 +1,5 @@
-using UndeadHero.StaticData;
+using UndeadHero.StaticData.Enemies;
+using UndeadHero.UI.Hud;
 using UnityEngine;
 
 namespace UndeadHero.Infrastructure.Services.Factory {
@@ -7,6 +8,6 @@ namespace UndeadHero.Infrastructure.Services.Factory {
     GameObject CreateEnemy(EnemyTypeId typeId, Vector3 position, Quaternion rotation, GameObject hero);
     GameObject CreateEnemyLootContainer(Vector3 position);
     void CreateEnemySpawner(Vector3 position, string spawnerId, EnemyTypeId enemyId, GameObject hero);
-    void CreateHud(GameObject hero);
+    PlayerHud CreateHud(GameObject hero);
   }
 }

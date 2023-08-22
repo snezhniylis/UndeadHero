@@ -8,5 +8,6 @@ namespace UndeadHero.Infrastructure.Services.PersistentProgress {
     void RestoreProgress();
     void CleanUp();
     void BindSceneObject(GameObject gameObject);
+    void BindObject(IPersistentProgressReader progressReader);
   }
 }

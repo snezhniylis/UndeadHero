@@ -35,12 +35,16 @@ namespace UndeadHero.Infrastructure.Services.PersistentProgress {
 
     public void BindSceneObject(GameObject gameObject) {
       foreach (IPersistentProgressReader progressReader in gameObject.GetComponentsInChildren<IPersistentProgressReader>()) {
-        if (progressReader is IPersistentProgressWriter progressWriter) {
-          _progressWriters.Add(progressWriter);
-        }
-
-        _progressReaders.Add(progressReader);
+        BindObject(progressReader);
       }
+    }
+
+    public void BindObject(IPersistentProgressReader progressReader) {
+      if (progressReader is IPersistentProgressWriter progressWriter) {
+        _progressWriters.Add(progressWriter);
+      }
+
+      _progressReaders.Add(progressReader);
     }
 
     public void CleanUp() {

@@ -31,5 +31,8 @@ namespace UndeadHero.Character.Hero {
 
     public void AddEssence(int amount) =>
       Essence += amount;
+
+    public void WithdrawEssence(int amount) =>
+      Essence -= amount;
   }
 }

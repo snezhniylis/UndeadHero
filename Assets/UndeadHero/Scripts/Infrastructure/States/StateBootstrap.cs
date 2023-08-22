@@ -1,12 +1,15 @@
 using UnityEngine;
 using UndeadHero.Infrastructure.Services;
 using UndeadHero.Infrastructure.Services.AssetManagement;
+using UndeadHero.Infrastructure.Services.EventFactory;
 using UndeadHero.Infrastructure.Services.Factory;
 using UndeadHero.Infrastructure.Services.Input;
 using UndeadHero.Infrastructure.Services.SaveManagement;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
 using UndeadHero.Infrastructure.Services.Random;
 using UndeadHero.Infrastructure.Services.StaticDataManagement;
+using UndeadHero.Infrastructure.Services.UiFactory;
+using UndeadHero.Infrastructure.Services.ViewManagement;
 
 namespace UndeadHero.Infrastructure.States {
   public class StateBootstrap : IState {
@@ -39,7 +42,10 @@ namespace UndeadHero.Infrastructure.States {
       _gameServices.RegisterSingle<IPersistentProgressService>(new PersistentProgressService(_gameServices.Single<ISaveManager>()));
       _gameServices.RegisterSingle<IAssetProvider>(new AssetProvider());
       _gameServices.RegisterSingle<IRandomizer>(new Randomizer());
-      _gameServices.RegisterSingle<IGameFactory>(new GameFactory(_gameServices.Single<IAssetProvider>(), _gameServices.Single<IPersistentProgressService>(), _gameServices.Single<IStaticDataProvider>(), _gameServices.Single<IRandomizer>()));
+      _gameServices.RegisterSingle<IUiFactory>(new UiFactory(_gameServices.Single<IAssetProvider>(), _gameServices.Single<IStaticDataProvider>()));
+      _gameServices.RegisterSingle<IEventFactory>(new EventFactory(_gameServices.Single<IStaticDataProvider>(), _gameServices.Single<IPersistentProgressService>()));
+      _gameServices.RegisterSingle<IViewManager>(new ViewManager(_gameServices.Single<IUiFactory>()));
+      _gameServices.RegisterSingle<IGameFactory>(new GameFactory(_gameServices.Single<IAssetProvider>(), _gameServices.Single<IPersistentProgressService>(), _gameServices.Single<IStaticDataProvider>(), _gameServices.Single<IRandomizer>(), _gameServices.Single<IUiFactory>(), _gameServices.Single<IViewManager>()));
     }
 
     private static IInputService InitializeInputService() =>

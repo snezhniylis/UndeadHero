@@ -1,7 +1,8 @@
 using System;
+using UndeadHero.StaticData.Enemies;
 using UnityEngine;
 
-namespace UndeadHero.StaticData.Serializable {
+namespace UndeadHero.StaticData.Levels {
   [Serializable]
   public class EnemySpawnerData {
     public string SpawnerId;

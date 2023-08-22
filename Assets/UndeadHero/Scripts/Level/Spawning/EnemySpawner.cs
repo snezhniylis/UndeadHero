@@ -2,7 +2,7 @@ using UndeadHero.Character.Enemy;
 using UndeadHero.Data;
 using UndeadHero.Infrastructure.Services.Factory;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
-using UndeadHero.StaticData;
+using UndeadHero.StaticData.Enemies;
 using UnityEngine;
 
 namespace UndeadHero.Level.Spawning {

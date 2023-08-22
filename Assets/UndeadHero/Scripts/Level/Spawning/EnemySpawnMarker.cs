@@ -1,5 +1,5 @@
 using System;
-using UndeadHero.StaticData;
+using UndeadHero.StaticData.Enemies;
 using UnityEngine;
 
 namespace UndeadHero.Level.Spawning {

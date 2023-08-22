@@ -4,8 +4,11 @@ using UndeadHero.Infrastructure.Services.AssetManagement;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
 using UndeadHero.Infrastructure.Services.Random;
 using UndeadHero.Infrastructure.Services.StaticDataManagement;
+using UndeadHero.Infrastructure.Services.UiFactory;
+using UndeadHero.Infrastructure.Services.ViewManagement;
 using UndeadHero.Level.Spawning;
-using UndeadHero.StaticData;
+using UndeadHero.StaticData.Enemies;
+using UndeadHero.StaticData.Heroes;
 using UndeadHero.UI.Hud;
 using UnityEngine;
 using UnityEngine.AI;
@@ -16,12 +19,16 @@ namespace UndeadHero.Infrastructure.Services.Factory {
     private readonly IPersistentProgressService _persistentProgress;
     private readonly IStaticDataProvider _staticDataProvider;
     private readonly IRandomizer _randomizer;
+    private readonly IUiFactory _uiFactory;
+    private readonly IViewManager _viewManager;
 
-    public GameFactory(IAssetProvider assetProvider, IPersistentProgressService persistentProgress, IStaticDataProvider staticDataProvider, IRandomizer randomizer) {
+    public GameFactory(IAssetProvider assetProvider, IPersistentProgressService persistentProgress, IStaticDataProvider staticDataProvider, IRandomizer randomizer, IUiFactory uiFactory, IViewManager viewManager) {
       _assetProvider = assetProvider;
       _persistentProgress = persistentProgress;
       _staticDataProvider = staticDataProvider;
       _randomizer = randomizer;
+      _uiFactory = uiFactory;
+      _viewManager = viewManager;
     }
 
     public GameObject CreateHero(Vector3 position, Quaternion rotation) {
@@ -96,13 +103,17 @@ namespace UndeadHero.Infrastructure.Services.Factory {
       );
     }
 
-    public void CreateHud(GameObject hero) {
-      GameObject hud = InstantiateByPath(AssetPaths.Hud);
+    public PlayerHud CreateHud(GameObject hero) {
+      var hud = InstantiateByPath(AssetPaths.Hud).GetComponent<PlayerHud>();
 
-      hud.GetComponent<PlayerHud>().Initialize(
+      hud.Initialize(
         hero.GetComponent<HeroHealth>(),
-        hero.GetComponent<HeroInventory>()
+        hero.GetComponent<HeroInventory>(),
+        _uiFactory,
+        _viewManager
       );
+
+      return hud;
     }
 
     private GameObject InstantiatePrefab(GameObject prefab, Vector3 position, Quaternion rotation) {

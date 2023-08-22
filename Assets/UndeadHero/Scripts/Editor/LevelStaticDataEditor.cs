@@ -1,7 +1,6 @@
 using System.Linq;
 using UndeadHero.Level.Spawning;
-using UndeadHero.StaticData;
-using UndeadHero.StaticData.Serializable;
+using UndeadHero.StaticData.Levels;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
