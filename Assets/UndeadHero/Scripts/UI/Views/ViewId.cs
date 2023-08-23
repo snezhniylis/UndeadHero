@@ -1,3 +1,5 @@
 namespace UndeadHero.UI.Views {
-  public enum ViewId { }
+  public enum ViewId {
+    HalloweenShop = 1
+  }
 }
