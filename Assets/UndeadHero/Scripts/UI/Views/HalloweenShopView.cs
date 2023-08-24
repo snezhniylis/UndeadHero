@@ -14,12 +14,12 @@ namespace UndeadHero.UI.Views {
       }
     }
 
-    public override void OnOpened() {
+    protected override void OnShow() {
       HeroInventory.OnEssenceAmountChanged += UpdateEssenceRelatedThings;
       UpdateEssenceRelatedThings(HeroInventory.Essence);
     }
 
-    public override void OnClosed() =>
+    protected override void OnHide() =>
       HeroInventory.OnEssenceAmountChanged -= UpdateEssenceRelatedThings;
 
     private void PurchaseItem(int itemPrice) =>

@@ -31,10 +31,9 @@ namespace UndeadHero.Infrastructure.Services.ViewManagement {
     }
 
     public void CloseActive() {
-      _activeView.gameObject.SetActive(false);
-      _activeView.OnClosed();
+      _activeView.Hide();
 
-      _viewStack.TryPop(out _activeView);
+      UnsuspendLatestView();
     }
 
     public void SpawnUiRoot() =>
@@ -47,12 +46,22 @@ namespace UndeadHero.Infrastructure.Services.ViewManagement {
 
     private void Switch(View newView) {
       if (_activeView != null) {
-        _viewStack.Push(_activeView);
+        Suspend(_activeView);
       }
 
       _activeView = newView;
-      _activeView.gameObject.SetActive(true);
-      _activeView.OnOpened();
+      _activeView.Show();
+    }
+
+    private void Suspend(View view) {
+      view.Hide();
+      _viewStack.Push(view);
+    }
+
+    private void UnsuspendLatestView() {
+      if (_viewStack.TryPop(out _activeView)) {
+        _activeView.Show();
+      }
     }
   }
 }

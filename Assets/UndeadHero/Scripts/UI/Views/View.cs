@@ -9,13 +9,23 @@ namespace UndeadHero.UI.Views {
     protected IViewManager ViewManager { get; private set; }
 
     public virtual void OnInitialized() { }
-    public virtual void OnOpened() { }
-    public virtual void OnClosed() { }
+    protected virtual void OnShow() { }
+    protected virtual void OnHide() { }
 
     protected void Initialize(IViewManager viewManager) {
       ViewManager = viewManager;
 
       InitializeCloseButton();
+    }
+
+    public void Hide() {
+      gameObject.SetActive(false);
+      OnHide();
+    }
+
+    public void Show() {
+      gameObject.SetActive(true);
+      OnShow();
     }
 
     private void InitializeCloseButton() {
