@@ -9,15 +9,13 @@ namespace UndeadHero.Level.Spawning {
   public class EnemySpawner : MonoBehaviour, IPersistentProgressWriter {
     private string _id;
     private EnemyTypeId _enemyTypeId;
-    private GameObject _hero;
     private IGameFactory _gameFactory;
 
     private bool _isDefeated;
 
-    public void Initialize(string spawnerId, EnemyTypeId enemyTypeId, GameObject hero, IGameFactory gameFactory) {
+    public void Initialize(string spawnerId, EnemyTypeId enemyTypeId, IGameFactory gameFactory) {
       _id = spawnerId;
       _enemyTypeId = enemyTypeId;
-      _hero = hero;
       _gameFactory = gameFactory;
     }
 
@@ -36,7 +34,7 @@ namespace UndeadHero.Level.Spawning {
 
     private void SpawnAssignedEnemy() {
       Transform spawnPoint = transform;
-      GameObject enemy = _gameFactory.CreateEnemy(_enemyTypeId, spawnPoint.position, spawnPoint.rotation, _hero);
+      GameObject enemy = _gameFactory.CreateEnemy(_enemyTypeId, spawnPoint.position, spawnPoint.rotation);
       enemy.GetComponent<EnemyDeath>().OnDied += () => _isDefeated = true;
     }
   }

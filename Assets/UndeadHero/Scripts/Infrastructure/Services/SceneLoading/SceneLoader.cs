@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
+using UndeadHero.Infrastructure.Services.Coroutines;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace UndeadHero.Infrastructure {
-  public class SceneLoader {
+namespace UndeadHero.Infrastructure.Services.SceneLoading {
+  public class SceneLoader : ISceneLoader {
     private readonly ICoroutineRunner _coroutineRunner;
 
     public SceneLoader(ICoroutineRunner coroutineRunner) {

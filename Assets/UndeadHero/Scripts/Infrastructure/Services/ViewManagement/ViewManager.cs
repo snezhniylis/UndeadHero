@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using UndeadHero.Character.Hero;
-using UndeadHero.Events;
 using UndeadHero.Infrastructure.Services.UiFactory;
 using UndeadHero.UI.Views;
 using UnityEngine;
@@ -19,11 +17,9 @@ namespace UndeadHero.Infrastructure.Services.ViewManagement {
       _uiFactory = uiFactory;
     }
 
-    // Super ugly DI with little room for code abstraction; will be solved with Zenject.
-    public void Open(ViewId viewId, GameEvent gameEvent, HeroInventory heroInventory) {
+    public void Open(ViewId viewId) {
       if (!_cachedViews.TryGetValue(viewId, out View newView)) {
-        newView = _uiFactory.CreateEventView(viewId, _uiRoot, this, gameEvent, heroInventory);
-        newView.OnInitialized();
+        newView = _uiFactory.CreateView(viewId, _uiRoot);
         _cachedViews.Add(viewId, newView);
       }
 
@@ -38,11 +34,6 @@ namespace UndeadHero.Infrastructure.Services.ViewManagement {
 
     public void SpawnUiRoot() =>
       _uiRoot = _uiFactory.CreateUiRoot();
-
-    public void CleanUp() {
-      _cachedViews.Clear();
-      _viewStack.Clear();
-    }
 
     private void Switch(View newView) {
       if (_activeView != null) {

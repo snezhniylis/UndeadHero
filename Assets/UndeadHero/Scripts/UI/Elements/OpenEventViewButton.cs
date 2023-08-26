@@ -1,4 +1,3 @@
-using UndeadHero.Character.Hero;
 using UndeadHero.Events;
 using UndeadHero.Infrastructure.Services.ViewManagement;
 using UnityEngine;
@@ -9,9 +8,9 @@ namespace UndeadHero.UI.Elements {
     [SerializeField] private Image _eventIcon;
     [SerializeField] private Button _eventButton;
 
-    public void Initialize(GameEvent gameEvent, IViewManager viewManager, HeroInventory heroInventory) {
+    public void Initialize(GameEvent gameEvent, IViewManager viewManager) {
       _eventIcon.sprite = gameEvent.Icon;
-      _eventButton.onClick.AddListener(() => viewManager.Open(gameEvent.ViewId, gameEvent, heroInventory));
+      _eventButton.onClick.AddListener(() => viewManager.Open(gameEvent.ViewId));
       gameEvent.OnEventCompleted += () => gameObject.SetActive(false);
     }
   }

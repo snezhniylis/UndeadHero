@@ -2,7 +2,7 @@ using UndeadHero.Data;
 using UnityEngine;
 
 namespace UndeadHero.Infrastructure.Services.PersistentProgress {
-  public interface IPersistentProgressService : IService {
+  public interface IPersistentProgressService {
     PlayerProgress LoadSavedProgress();
     void SaveProgress();
     void RestoreProgress();

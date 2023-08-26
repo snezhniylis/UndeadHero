@@ -1,29 +1,41 @@
 using System.Collections.Generic;
 using TMPro;
+using UndeadHero.Character.Hero;
+using UndeadHero.Infrastructure.Services.ViewManagement;
 using UndeadHero.UI.Elements;
 using UnityEngine;
 
 namespace UndeadHero.UI.Views {
-  public class HalloweenShopView : EventView {
+  public class HalloweenShopView : View {
     [SerializeField] private TMP_Text _essenceCounter;
     [SerializeField] private List<ShopItemCard> _itemCards;
 
-    public override void OnInitialized() {
+    private HeroInventory _heroInventory;
+
+    public void Initialize(IViewManager viewManager, HeroInventory heroInventory) {
+      base.Initialize(viewManager);
+
+      _heroInventory = heroInventory;
+
+      InitializeItemCards();
+    }
+
+    private void InitializeItemCards() {
       foreach (ShopItemCard itemCard in _itemCards) {
         itemCard.OnBuyButtonPressed += PurchaseItem;
       }
     }
 
     protected override void OnShow() {
-      HeroInventory.OnEssenceAmountChanged += UpdateEssenceRelatedThings;
-      UpdateEssenceRelatedThings(HeroInventory.Essence);
+      _heroInventory.OnEssenceAmountChanged += UpdateEssenceRelatedThings;
+      UpdateEssenceRelatedThings(_heroInventory.Essence);
     }
 
     protected override void OnHide() =>
-      HeroInventory.OnEssenceAmountChanged -= UpdateEssenceRelatedThings;
+      _heroInventory.OnEssenceAmountChanged -= UpdateEssenceRelatedThings;
 
     private void PurchaseItem(int itemPrice) =>
-      HeroInventory.WithdrawEssence(itemPrice);
+      _heroInventory.WithdrawEssence(itemPrice);
 
     private void UpdateEssenceRelatedThings(int amount) {
       UpdateEssenceCounter(amount);

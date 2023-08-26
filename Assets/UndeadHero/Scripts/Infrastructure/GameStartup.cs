@@ -1,13 +1,16 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UndeadHero.Infrastructure {
   public class GameStartup : MonoBehaviour {
-    public GameBootstrapper BootstrapperPrefab;
+    private const string EntrySceneName = "Entry";
 
     private void Awake() {
-      if (FindObjectOfType<GameBootstrapper>() == null) {
-        Instantiate(BootstrapperPrefab);
+#if UNITY_EDITOR
+      if (FindObjectOfType<Game>() == null) {
+        SceneManager.LoadScene(EntrySceneName);
       }
+#endif
     }
   }
 }

@@ -1,5 +1,4 @@
 using UndeadHero.Character.Base;
-using UndeadHero.Infrastructure.Services;
 using UndeadHero.Infrastructure.Services.Input;
 using UnityEngine;
 
@@ -11,14 +10,9 @@ namespace UndeadHero.Character.Hero {
 
     private IInputService _inputService;
 
-    public new void Initialize(float damage, float cooldown, Vector3 impactOrigin, float impactRadius) {
+    public void Initialize(float damage, float cooldown, Vector3 impactOrigin, float impactRadius, IInputService inputService) {
       base.Initialize(damage, cooldown, impactOrigin, impactRadius);
-    }
-
-    protected override void Awake() {
-      base.Awake();
-
-      _inputService = GameServices.Container.Single<IInputService>();
+      _inputService = inputService;
     }
 
     protected override void InitializeCollisionParameters() {

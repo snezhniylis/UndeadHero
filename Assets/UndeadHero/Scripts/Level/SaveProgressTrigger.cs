@@ -1,6 +1,6 @@
-using UndeadHero.Infrastructure.Services;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
+using VContainer;
 
 namespace UndeadHero.Level {
   [RequireComponent(typeof(BoxCollider))]
@@ -9,8 +9,10 @@ namespace UndeadHero.Level {
 
     [SerializeField] private BoxCollider _collider;
 
-    private void Awake() =>
-      _progressService = GameServices.Container.Single<IPersistentProgressService>();
+    [Inject]
+    private void Construct(IPersistentProgressService progressService) {
+      _progressService = progressService;
+    }
 
     private void OnTriggerEnter(Collider other) {
       _progressService.SaveProgress();

@@ -8,7 +8,6 @@ namespace UndeadHero.UI.Views {
 
     protected IViewManager ViewManager { get; private set; }
 
-    public virtual void OnInitialized() { }
     protected virtual void OnShow() { }
     protected virtual void OnHide() { }
 

@@ -1,51 +1,67 @@
 using UndeadHero.Character.Hero;
 using UndeadHero.Events;
 using UndeadHero.Infrastructure.Services.AssetManagement;
+using UndeadHero.Infrastructure.Services.SceneObjectsRegistry;
 using UndeadHero.Infrastructure.Services.StaticDataManagement;
 using UndeadHero.Infrastructure.Services.ViewManagement;
 using UndeadHero.StaticData.Views;
 using UndeadHero.UI.Elements;
 using UndeadHero.UI.Views;
 using UnityEngine;
+using VContainer;
 
 namespace UndeadHero.Infrastructure.Services.UiFactory {
   public class UiFactory : IUiFactory {
+    private readonly IObjectResolver _sceneDiContainer;
+
     private readonly IAssetProvider _assetProvider;
     private readonly IStaticDataProvider _staticDataProvider;
-    private readonly IViewManager _viewManager;
+    private readonly ISceneObjectsRegistry _sceneObjectsRegistry;
 
-    public UiFactory(IAssetProvider assetProvider, IStaticDataProvider staticDataProvider) {
+    public UiFactory(IObjectResolver sceneDiContainer, IAssetProvider assetProvider, IStaticDataProvider staticDataProvider, ISceneObjectsRegistry sceneObjectsRegistry) {
+      // `UiFactory` requires `ViewManager` to be passed as a dependency to UI elements,
+      // meanwhile `ViewManager` already utilizes `UiFactory` to create non-existent views.
+      // The somewhat hacky solution to this circular dependency is to use the DI container
+      // to get the ViewManager instance when instantiating UI elements.
+      _sceneDiContainer = sceneDiContainer;
+
       _assetProvider = assetProvider;
       _staticDataProvider = staticDataProvider;
+      _sceneObjectsRegistry = sceneObjectsRegistry;
     }
 
     public Transform CreateUiRoot() =>
       InstantiateByPath(AssetPaths.UiRoot).transform;
 
-    public GameObject CreateEventButton(GameEvent gameEvent, Transform parent, IViewManager viewManager, HeroInventory heroInventory) {
+    public GameObject CreateEventButton(GameEvent gameEvent, Transform parent) {
       GameObject button = InstantiateByPath(AssetPaths.HudEventButton, parent);
 
-      button.GetComponent<OpenEventViewButton>().Initialize(gameEvent, viewManager, heroInventory);
+      button.GetComponent<OpenEventViewButton>().Initialize(
+        gameEvent,
+        _sceneDiContainer.Resolve<IViewManager>()
+      );
 
       return button;
     }
 
-    public EventView CreateEventView(ViewId viewId, Transform parent, ViewManager viewManager, GameEvent gameEvent, HeroInventory heroInventory) {
+    public View CreateView(ViewId viewId, Transform parent) {
       ViewStaticData viewData = _staticDataProvider.GetViewData(viewId);
+      GameObject view = InstantiatePrefab(viewData.Prefab, parent);
 
-      var view = InstantiatePrefab(viewData.Prefab, parent).GetComponent<EventView>();
+      switch (viewId) {
+        case ViewId.HalloweenShop:
+          InitializeHalloweenShopView(view);
+          break;
+      }
 
-      view.Initialize(
-        viewManager,
-        gameEvent,
-        heroInventory
-      );
-
-      return view;
+      return view.GetComponent<View>();
     }
 
-    private GameObject InstantiatePrefab(GameObject prefab, Vector3 position, Quaternion rotation) =>
-      Object.Instantiate(prefab, position, rotation);
+    private void InitializeHalloweenShopView(GameObject view) =>
+      view.GetComponent<HalloweenShopView>().Initialize(
+        _sceneDiContainer.Resolve<IViewManager>(),
+        _sceneObjectsRegistry.Hero.GetComponent<HeroInventory>()
+      );
 
     private GameObject InstantiatePrefab(GameObject prefab, Transform parent) =>
       Object.Instantiate(prefab, parent);

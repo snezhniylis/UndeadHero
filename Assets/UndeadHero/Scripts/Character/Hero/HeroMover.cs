@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UndeadHero.Data;
-using UndeadHero.Infrastructure.Services;
 using UndeadHero.Infrastructure.Services.Input;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
 
@@ -17,14 +16,13 @@ namespace UndeadHero.Character.Hero {
     private IInputService _inputService;
     private Camera _camera;
 
-    public void Initialize(float movementSpeed) {
+    public void Initialize(float movementSpeed, IInputService inputService) {
       _movementSpeed = movementSpeed;
+      _inputService = inputService;
     }
 
-    private void Awake() {
-      _inputService = GameServices.Container.Single<IInputService>();
+    private void Awake() =>
       _camera = Camera.main;
-    }
 
     private void Update() =>
       UpdateMovement();
