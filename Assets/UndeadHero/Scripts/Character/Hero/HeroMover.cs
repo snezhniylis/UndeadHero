@@ -28,14 +28,14 @@ namespace UndeadHero.Character.Hero {
       UpdateMovement();
 
     public void WriteProgress(PlayerProgress progress) {
-      progress.WorldData.Level = GetCurrentLevelName();
-      progress.WorldData.PlayerPosition = transform.position.AsVectorData();
+      progress.CurrentLevel.Name = GetCurrentLevelName();
+      progress.CurrentLevel.PlayerPosition = transform.position.AsVectorData();
     }
 
     public void ReadProgress(PlayerProgress progress) {
-      if (progress != null) {
-        if (GetCurrentLevelName() == progress.WorldData.Level) {
-          Vector3Data savedPosition = progress.WorldData.PlayerPosition;
+      if (progress.CurrentLevel != null) {
+        if (GetCurrentLevelName() == progress.CurrentLevel.Name) {
+          Vector3Data savedPosition = progress.CurrentLevel.PlayerPosition;
           if (savedPosition != null) {
             Warp(savedPosition.AsUnityVector());
           }

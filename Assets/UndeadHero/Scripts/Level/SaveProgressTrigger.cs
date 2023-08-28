@@ -15,7 +15,7 @@ namespace UndeadHero.Level {
     }
 
     private void OnTriggerEnter(Collider other) {
-      _progressService.SaveProgress();
+      _progressService.SaveLevelProgress();
       Debug.Log("Progress Saved");
       gameObject.SetActive(false);
     }

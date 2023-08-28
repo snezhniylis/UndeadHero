@@ -20,15 +20,15 @@ namespace UndeadHero.Level.Spawning {
     }
 
     public void ReadProgress(PlayerProgress progress) {
-      _isDefeated = progress != null && progress.WorldData.DefeatedSpawners.Contains(_id);
+      _isDefeated = progress.CurrentLevel != null && progress.CurrentLevel.DefeatedSpawners.Contains(_id);
       if (!_isDefeated) {
         SpawnAssignedEnemy();
       }
     }
 
     public void WriteProgress(PlayerProgress progress) {
-      if (_isDefeated && !progress.WorldData.DefeatedSpawners.Contains(_id)) {
-        progress.WorldData.DefeatedSpawners.Add(_id);
+      if (_isDefeated && !progress.CurrentLevel.DefeatedSpawners.Contains(_id)) {
+        progress.CurrentLevel.DefeatedSpawners.Add(_id);
       }
     }
 

@@ -1,4 +1,3 @@
-using UndeadHero.Infrastructure.Services.EventFactory;
 using UndeadHero.Infrastructure.Services.Factory;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
 using UndeadHero.Infrastructure.Services.SceneLoading;
@@ -40,7 +39,6 @@ namespace UndeadHero.Infrastructure.States {
       builder.Register<ISceneObjectsRegistry, SceneObjectsRegistry>(Lifetime.Scoped);
       builder.Register<IGameFactory, GameFactory>(Lifetime.Scoped);
       builder.Register<IUiFactory, UiFactory>(Lifetime.Scoped);
-      builder.Register<IEventFactory, EventFactory>(Lifetime.Scoped);
       builder.Register<IViewManager, ViewManager>(Lifetime.Scoped);
     }
   }

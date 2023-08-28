@@ -1,6 +1,6 @@
 using UndeadHero.CameraLogic;
 using UndeadHero.Events;
-using UndeadHero.Infrastructure.Services.EventFactory;
+using UndeadHero.Infrastructure.Services.Events;
 using UndeadHero.Infrastructure.Services.Factory;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
 using UndeadHero.Infrastructure.Services.StaticDataManagement;
@@ -24,26 +24,26 @@ namespace UndeadHero.Infrastructure.States {
     private readonly GameStateMachine _stateMachine;
     private readonly LoadingScreen _loadingScreen;
     private readonly IGameFactory _gameFactory;
-    private readonly IEventFactory _eventFactory;
     private readonly IViewManager _viewManager;
     private readonly IPersistentProgressService _progressService;
     private readonly IStaticDataProvider _staticDataProvider;
+    private readonly IEventRegistry _eventRegistry;
 
-    public StateInitializeLevel(IObjectResolver sceneDiContainer, GameStateMachine stateMachine, LoadingScreen loadingScreen, IGameFactory gameFactory, IEventFactory eventFactory, IViewManager viewManager, IPersistentProgressService progressService, IStaticDataProvider staticDataProvider) {
+    public StateInitializeLevel(IObjectResolver sceneDiContainer, GameStateMachine stateMachine, LoadingScreen loadingScreen, IGameFactory gameFactory, IViewManager viewManager, IPersistentProgressService progressService, IStaticDataProvider staticDataProvider, IEventRegistry eventRegistry) {
       _sceneDiContainer = sceneDiContainer;
 
       _stateMachine = stateMachine;
       _loadingScreen = loadingScreen;
       _gameFactory = gameFactory;
-      _eventFactory = eventFactory;
       _viewManager = viewManager;
       _progressService = progressService;
       _staticDataProvider = staticDataProvider;
+      _eventRegistry = eventRegistry;
     }
 
     public void Enter() {
       InitializeLevelEntities();
-      _progressService.RestoreProgress();
+      _progressService.RestoreLevelProgress();
       _viewManager.SpawnUiRoot();
       _loadingScreen.Hide();
       _stateMachine.Enter<StateGameLoop>();
@@ -65,8 +65,8 @@ namespace UndeadHero.Infrastructure.States {
     }
 
     private void InitializeGameEvents(PlayerHud hud) {
-      foreach (GameEvent gameEvent in _eventFactory.CreateGameEvents()) {
-        if (gameEvent.AreEventConditionsMet()) {
+      foreach (GameEvent gameEvent in _eventRegistry.GetAllEvents()) {
+        if (gameEvent.IsActive()) {
           hud.AddEventButton(gameEvent);
         }
       }

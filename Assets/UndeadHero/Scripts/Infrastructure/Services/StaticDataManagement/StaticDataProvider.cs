@@ -14,15 +14,15 @@ namespace UndeadHero.Infrastructure.Services.StaticDataManagement {
     private readonly HeroStaticData _heroData;
     private readonly Dictionary<EnemyTypeId, EnemyStaticData> _enemyData;
     private readonly Dictionary<string, LevelStaticData> _levelData;
-    private readonly Dictionary<string, EventStaticData> _eventData;
     private readonly Dictionary<ViewId, ViewStaticData> _viewData;
+    private readonly EventStaticData[] _eventData;
 
     public StaticDataProvider() {
       _heroData = Resources.Load<HeroStaticData>(AssetPaths.HeroStaticData);
       _enemyData = Resources.LoadAll<EnemyStaticData>(AssetPaths.EnemiesStaticData).ToDictionary(x => x.EnemyTypeId, x => x);
       _levelData = Resources.LoadAll<LevelStaticData>(AssetPaths.LevelsStaticData).ToDictionary(x => x.LevelName, x => x);
-      _eventData = Resources.LoadAll<EventStaticData>(AssetPaths.EventsStaticData).ToDictionary(x => x.Id, x => x);
       _viewData = Resources.LoadAll<ViewStaticData>(AssetPaths.ViewsStaticData).ToDictionary(x => x.Id, x => x);
+      _eventData = Resources.LoadAll<EventStaticData>(AssetPaths.EventsStaticData);
     }
 
     public HeroStaticData GetHeroData() =>
@@ -37,10 +37,7 @@ namespace UndeadHero.Infrastructure.Services.StaticDataManagement {
     public ViewStaticData GetViewData(ViewId viewId) =>
       _viewData.TryGetValue(viewId, out ViewStaticData viewData) ? viewData : null;
 
-    public IEnumerable<EventStaticData> GetAllEventsData() {
-      foreach (var eventData in _eventData) {
-        yield return eventData.Value;
-      }
-    }
+    public IEnumerable<EventStaticData> GetAllEventsData() =>
+      _eventData;
   }
 }

@@ -1,5 +1,6 @@
 using UndeadHero.Infrastructure.Services.AssetManagement;
 using UndeadHero.Infrastructure.Services.Coroutines;
+using UndeadHero.Infrastructure.Services.Events;
 using UndeadHero.Infrastructure.Services.Input;
 using UndeadHero.Infrastructure.Services.PersistentProgress;
 using UndeadHero.Infrastructure.Services.Random;
@@ -54,6 +55,7 @@ namespace UndeadHero.Infrastructure {
       builder.Register<IStaticDataProvider, StaticDataProvider>(Lifetime.Singleton);
       builder.Register<ISaveManager, SaveManager>(Lifetime.Singleton);
       builder.Register<IPersistentProgressService, PersistentProgressService>(Lifetime.Singleton);
+      builder.Register<IEventRegistry, EventRegistry>(Lifetime.Singleton);
       builder.Register<IAssetProvider, AssetProvider>(Lifetime.Singleton);
       builder.Register<IRandomizer, Randomizer>(Lifetime.Singleton);
     }

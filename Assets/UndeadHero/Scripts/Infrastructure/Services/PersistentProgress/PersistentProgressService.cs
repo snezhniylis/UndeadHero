@@ -19,15 +19,15 @@ namespace UndeadHero.Infrastructure.Services.PersistentProgress {
     }
 
     public PlayerProgress LoadSavedProgress() =>
-      _progress = _saveManager.Load<PlayerProgress>(ProgressKey);
+      _progress = _saveManager.Load<PlayerProgress>(ProgressKey) ?? new PlayerProgress();
 
-    public void SaveProgress() {
-      _progress ??= new PlayerProgress();
+    public void SaveLevelProgress() {
+      _progress.CurrentLevel = new CurrentLevelData();
       ActualizeProgress();
       _saveManager.Save(ProgressKey, _progress);
     }
 
-    public void RestoreProgress() {
+    public void RestoreLevelProgress() {
       foreach (IPersistentProgressReader progressReader in _progressReaders) {
         progressReader.ReadProgress(_progress);
       }
@@ -35,16 +35,12 @@ namespace UndeadHero.Infrastructure.Services.PersistentProgress {
 
     public void BindSceneObject(GameObject gameObject) {
       foreach (IPersistentProgressReader progressReader in gameObject.GetComponentsInChildren<IPersistentProgressReader>()) {
-        BindObject(progressReader);
-      }
-    }
+        if (progressReader is IPersistentProgressWriter progressWriter) {
+          _progressWriters.Add(progressWriter);
+        }
 
-    public void BindObject(IPersistentProgressReader progressReader) {
-      if (progressReader is IPersistentProgressWriter progressWriter) {
-        _progressWriters.Add(progressWriter);
+        _progressReaders.Add(progressReader);
       }
-
-      _progressReaders.Add(progressReader);
     }
 
     public void CleanUp() {

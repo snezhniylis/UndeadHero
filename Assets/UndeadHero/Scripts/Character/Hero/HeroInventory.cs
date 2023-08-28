@@ -17,17 +17,11 @@ namespace UndeadHero.Character.Hero {
 
     public Action<int> OnEssenceAmountChanged;
 
-    public void ReadProgress(PlayerProgress progress) {
-      if (progress != null) {
-        Essence = progress.HeroData.Essence;
-      }
-    }
+    public void ReadProgress(PlayerProgress progress) =>
+      Essence = progress.PlayerStats.Essence;
 
-    public void WriteProgress(PlayerProgress progress) {
-      if (progress != null) {
-        progress.HeroData.Essence = Essence;
-      }
-    }
+    public void WriteProgress(PlayerProgress progress) =>
+      progress.PlayerStats.Essence = Essence;
 
     public void AddEssence(int amount) =>
       Essence += amount;
