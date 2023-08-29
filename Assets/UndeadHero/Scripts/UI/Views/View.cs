@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace UndeadHero.UI.Views {
   public abstract class View : MonoBehaviour {
-    [SerializeField] private Button _closeViewButton;
+    [SerializeField] private Button[] _closeViewButtons;
 
     protected IViewManager ViewManager { get; private set; }
 
@@ -28,9 +28,12 @@ namespace UndeadHero.UI.Views {
     }
 
     private void InitializeCloseButton() {
-      if (_closeViewButton != null) {
-        _closeViewButton.onClick.AddListener(() => ViewManager.CloseActive());
+      foreach (Button button in _closeViewButtons) {
+        button.onClick.AddListener(CloseView);
       }
     }
+
+    private void CloseView() =>
+      ViewManager.CloseActive();
   }
 }
