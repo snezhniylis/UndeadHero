@@ -1,6 +1,13 @@
+# OmniSharp
 /RoslynExtensions
 omnisharp.json
+
+# JetBrains-related
 /.idea
+
+# EDM4U-managed libs
+/Assets/Plugins/Android/*.jar*
+/Assets/Plugins/Android/*.aar*
 
 # The following is .gitignore template, taken from:
 # https://github.com/github/gitignore/blob/main/Unity.gitignore
