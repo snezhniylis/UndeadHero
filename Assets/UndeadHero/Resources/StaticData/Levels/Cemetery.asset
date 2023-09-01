@@ -14,4 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelName: Cemetery
   InitialHeroPosition: {x: 10.68, y: 0, z: 13.68}
-  EnemySpawners: []
+  EnemySpawners:
+  - SpawnerId: b3e9a28eb79d4fe18a86b79aa0f71321
+    EnemyTypeId: 1
+    Position: {x: 7.3616867, y: 0, z: 16.021303}
+  - SpawnerId: 8a87607b76cd4293b119b4acd251e01f
+    EnemyTypeId: 1
+    Position: {x: 14.6016865, y: 0, z: 16.011303}
+  - SpawnerId: b145b034dbb74406a7cb8ac86733dbbd
+    EnemyTypeId: 1
+    Position: {x: 13.491686, y: 0, z: 10.301303}

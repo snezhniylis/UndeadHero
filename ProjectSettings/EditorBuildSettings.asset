@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/UndeadHero/Scenes/10-Cemetery/Cemetery.unity
     guid: 80899f7a121cad69e90cbb95c69c744b
+  - enabled: 1
+    path: Assets/UndeadHero/Scenes/20-Underworld_LeapOfFaith/Underworld_LeapOfFaith.unity
+    guid: 2e82bcb964cfe6d5fa61fa48a581e1c9
   m_configObjects: {}
