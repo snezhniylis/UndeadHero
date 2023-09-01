@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3120035004147137087
+--- !u!1 &702421728264872949
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3120035004147137080}
-  - component: {fileID: 3120035004147137082}
-  - component: {fileID: 3120035004147137081}
+  - component: {fileID: 441972988398155521}
+  - component: {fileID: 2142399626720447557}
+  - component: {fileID: 4837854002337205306}
   m_Layer: 0
-  m_Name: SetProgressTrigger
+  m_Name: LoadLevelTrigger
   m_TagString: Injectable
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3120035004147137080
+--- !u!4 &441972988398155521
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3120035004147137087}
+  m_GameObject: {fileID: 702421728264872949}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3120035004147137082
+--- !u!65 &2142399626720447557
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3120035004147137087}
+  m_GameObject: {fileID: 702421728264872949}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -54,16 +54,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &3120035004147137081
+--- !u!114 &4837854002337205306
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3120035004147137087}
+  m_GameObject: {fileID: 702421728264872949}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ba13dd0347e48e4b37d1c3c2b5b6859, type: 3}
+  m_Script: {fileID: 11500000, guid: b67b8c4221634f27b1fa42dd73ba1eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collider: {fileID: 3120035004147137082}
+  _levelToLoad: 
+  _collider: {fileID: 2142399626720447557}
