@@ -16,7 +16,6 @@ using GameObject = UnityEngine.GameObject;
 
 namespace UndeadHero.Infrastructure.States {
   public class StateInitializeLevel : IState {
-    private const string PlayerSpawnPointTag = "PlayerSpawnPoint";
     private const string InjectableObjectTag = "Injectable";
 
     private readonly IObjectResolver _sceneDiContainer;
@@ -52,10 +51,12 @@ namespace UndeadHero.Infrastructure.States {
     public void Exit() { }
 
     private void InitializeLevelEntities() {
-      GameObject hero = InitializeHero();
+      LevelStaticData levelData = GetLevelStaticData();
+
+      GameObject hero = InitializeHero(levelData);
       SetMainCameraTarget(hero);
 
-      InitializeEnemySpawners();
+      InitializeEnemySpawners(levelData);
 
       PlayerHud hud = InitializeHud();
 
@@ -72,14 +73,10 @@ namespace UndeadHero.Infrastructure.States {
       }
     }
 
-    private GameObject InitializeHero() {
-      Transform spawnPoint = GameObject.FindWithTag(PlayerSpawnPointTag).transform;
-      return _gameFactory.CreateHero(spawnPoint.position, spawnPoint.rotation);
-    }
+    private GameObject InitializeHero(LevelStaticData levelData) =>
+      _gameFactory.CreateHero(levelData.InitialHeroPosition);
 
-    private void InitializeEnemySpawners() {
-      string currentLevelName = SceneManager.GetActiveScene().name;
-      LevelStaticData levelData = _staticDataProvider.GetLevelData(currentLevelName);
+    private void InitializeEnemySpawners(LevelStaticData levelData) {
       foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners) {
         _gameFactory.CreateEnemySpawner(spawnerData.Position, spawnerData.SpawnerId, spawnerData.EnemyTypeId);
       }
@@ -98,5 +95,8 @@ namespace UndeadHero.Infrastructure.States {
       var followTargetBehavior = Camera.main.GetComponent<CameraFollowTarget>();
       followTargetBehavior.SetTarget(target);
     }
+
+    private LevelStaticData GetLevelStaticData() =>
+      _staticDataProvider.GetLevelData(SceneManager.GetActiveScene().name);
   }
 }

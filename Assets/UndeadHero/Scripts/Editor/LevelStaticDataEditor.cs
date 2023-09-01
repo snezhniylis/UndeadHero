@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 namespace UndeadHero.Scripts.Editor {
   [CustomEditor(typeof(LevelStaticData))]
   public class LevelStaticDataEditor : UnityEditor.Editor {
+    private const string PlayerSpawnPointTag = "PlayerSpawnPoint";
+
     public override void OnInspectorGUI() {
       base.OnInspectorGUI();
 
@@ -22,6 +24,8 @@ namespace UndeadHero.Scripts.Editor {
           }).ToList();
 
         levelData.LevelName = SceneManager.GetActiveScene().name;
+
+        levelData.InitialHeroPosition = GameObject.FindWithTag(PlayerSpawnPointTag).transform.position;
 
         EditorUtility.SetDirty(target);
       }

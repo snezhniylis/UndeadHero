@@ -34,10 +34,10 @@ namespace UndeadHero.Infrastructure.Services.Factory {
       _sceneObjects = sceneObjects;
     }
 
-    public GameObject CreateHero(Vector3 position, Quaternion rotation) {
+    public GameObject CreateHero(Vector3 position) {
       HeroStaticData heroData = _staticDataProvider.GetHeroData();
 
-      GameObject hero = InstantiatePrefab(heroData.Prefab, position, rotation);
+      GameObject hero = InstantiatePrefab(heroData.Prefab, position, Quaternion.identity);
 
       hero.GetComponent<HeroHealth>().Initialize(
         heroData.Hp,
