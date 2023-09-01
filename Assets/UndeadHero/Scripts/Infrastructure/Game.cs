@@ -1,3 +1,4 @@
+using UndeadHero.Infrastructure.Services.Ads;
 using UndeadHero.Infrastructure.Services.AssetManagement;
 using UndeadHero.Infrastructure.Services.Coroutines;
 using UndeadHero.Infrastructure.Services.Events;
@@ -17,8 +18,6 @@ namespace UndeadHero.Infrastructure {
   public class Game : LifetimeScope {
     [SerializeField] private LoadingScreen _loadingScreenPrefab;
 
-    private GameStateMachine _stateMachine;
-
     protected override void Configure(IContainerBuilder builder) {
       base.Configure(builder);
 
@@ -28,8 +27,11 @@ namespace UndeadHero.Infrastructure {
     private void Start() {
       DontDestroyOnLoad(this);
 
-      _stateMachine = Container.Resolve<GameStateMachine>();
-      _stateMachine.Enter<StateLoadProgress>();
+      var adService = Container.Resolve<IAdService>();
+      adService.Initialize();
+
+      var stateMachine = Container.Resolve<GameStateMachine>();
+      stateMachine.Enter<StateLoadProgress>();
     }
 
     private void RegisterGlobalGameServices(IContainerBuilder builder) {
@@ -51,6 +53,7 @@ namespace UndeadHero.Infrastructure {
         builder.Register<IInputService, MobileInputService>(Lifetime.Singleton);
       }
 
+      builder.Register<IAdService, AdService>(Lifetime.Singleton);
       builder.Register<ISceneLoader, SceneLoader>(Lifetime.Singleton);
       builder.Register<IStaticDataProvider, StaticDataProvider>(Lifetime.Singleton);
       builder.Register<ISaveManager, SaveManager>(Lifetime.Singleton);

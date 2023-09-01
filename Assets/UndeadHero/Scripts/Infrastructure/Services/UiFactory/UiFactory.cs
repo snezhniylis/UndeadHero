@@ -1,5 +1,6 @@
 using UndeadHero.Character.Hero;
 using UndeadHero.Events;
+using UndeadHero.Infrastructure.Services.Ads;
 using UndeadHero.Infrastructure.Services.AssetManagement;
 using UndeadHero.Infrastructure.Services.Events;
 using UndeadHero.Infrastructure.Services.SceneObjectsRegistry;
@@ -19,8 +20,9 @@ namespace UndeadHero.Infrastructure.Services.UiFactory {
     private readonly IStaticDataProvider _staticDataProvider;
     private readonly ISceneObjectsRegistry _sceneObjects;
     private readonly IEventRegistry _eventRegistry;
+    private readonly IAdService _adService;
 
-    public UiFactory(IObjectResolver sceneDiContainer, IAssetProvider assetProvider, IStaticDataProvider staticDataProvider, ISceneObjectsRegistry sceneObjectsRegistry, IEventRegistry eventRegistry) {
+    public UiFactory(IObjectResolver sceneDiContainer, IAssetProvider assetProvider, IStaticDataProvider staticDataProvider, ISceneObjectsRegistry sceneObjectsRegistry, IEventRegistry eventRegistry, IAdService adService) {
       // `UiFactory` requires `ViewManager` to be passed as a dependency to UI elements,
       // meanwhile `ViewManager` already utilizes `UiFactory` to create non-existent views.
       // The somewhat hacky solution to this circular dependency is to use the DI container
@@ -34,6 +36,7 @@ namespace UndeadHero.Infrastructure.Services.UiFactory {
       _staticDataProvider = staticDataProvider;
       _sceneObjects = sceneObjectsRegistry;
       _eventRegistry = eventRegistry;
+      _adService = adService;
     }
 
     public Transform CreateUiRoot() =>
@@ -76,6 +79,7 @@ namespace UndeadHero.Infrastructure.Services.UiFactory {
       view.GetComponent<DailyAdView>().Initialize(
         _sceneDiContainer.Resolve<IViewManager>(),
         _eventRegistry,
+        _adService,
         _sceneObjects.Hero.GetComponent<HeroInventory>()
       );
 

@@ -1050,7 +1050,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 59.7
+  m_fontSize: 21.35
   m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1246,7 +1246,7 @@ RectTransform:
   - {fileID: 5504503065267566343}
   - {fileID: 8486828566220194419}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.05}
   m_AnchorMax: {x: 0.5, y: 0.95}
@@ -1268,6 +1268,7 @@ MonoBehaviour:
   _closeViewButtons:
   - {fileID: 7797994245271360929}
   - {fileID: 4095673374805851468}
+  _showAdButton: {fileID: 5370482187015039251}
 --- !u!1 &5722115167686736564
 GameObject:
   m_ObjectHideFlags: 0

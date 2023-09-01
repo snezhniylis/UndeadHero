@@ -33,7 +33,7 @@ namespace UndeadHero.UI.Views {
       }
     }
 
-    private void CloseView() =>
+    protected void CloseView() =>
       ViewManager.CloseActive();
   }
 }
