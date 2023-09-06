@@ -18,9 +18,9 @@ MonoBehaviour:
   - SpawnerId: 8a87607b76cd4293b119b4acd251e01f
     EnemyTypeId: 1
     Position: {x: 28.081688, y: 0, z: 27.921303}
+  - SpawnerId: b3e9a28eb79d4fe18a86b79aa0f71321
+    EnemyTypeId: 2
+    Position: {x: 21.611687, y: 0, z: 36.511303}
   - SpawnerId: c002431dda704d7e9f01228c1c2976f6
     EnemyTypeId: 1
     Position: {x: 31.391685, y: 0, z: 15.011303}
-  - SpawnerId: b3e9a28eb79d4fe18a86b79aa0f71321
-    EnemyTypeId: 1
-    Position: {x: 21.611687, y: 0, z: 36.511303}
