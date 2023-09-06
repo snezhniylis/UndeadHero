@@ -6,9 +6,11 @@ namespace UndeadHero.Level.Pickups {
   public class PickUpTrigger : MonoBehaviour {
     private const float SelfDestroySeconds = 1f;
 
-    public Action<Collider> OnHeroPickUp;
+    [SerializeField] private GameObject _pickupObject;
 
     private bool _wasPickedUp;
+
+    public Action<Collider> OnHeroPickUp;
 
     private void OnTriggerEnter(Collider heroCollider) {
       if (CanBePickedUp()) {
@@ -24,8 +26,13 @@ namespace UndeadHero.Level.Pickups {
 
       _wasPickedUp = true;
 
+      HidePickupObject();
+
       StartCoroutine(SelfDestroyRoutine());
     }
+
+    private void HidePickupObject() =>
+      _pickupObject.SetActive(false);
 
     private IEnumerator SelfDestroyRoutine() {
       yield return new WaitForSeconds(SelfDestroySeconds);
