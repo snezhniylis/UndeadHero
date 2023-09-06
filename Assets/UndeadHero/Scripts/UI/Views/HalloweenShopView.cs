@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using TMPro;
 using UndeadHero.Character.Hero;
+using UndeadHero.Infrastructure.Services.SceneObjectsRegistry;
 using UndeadHero.Infrastructure.Services.ViewManagement;
 using UndeadHero.UI.Elements;
 using UnityEngine;
+using VContainer;
 
 namespace UndeadHero.UI.Views {
   public class HalloweenShopView : View {
@@ -12,10 +14,11 @@ namespace UndeadHero.UI.Views {
 
     private HeroInventory _heroInventory;
 
-    public void Initialize(IViewManager viewManager, HeroInventory heroInventory) {
+    [Inject]
+    public void Initialize(IViewManager viewManager, ISceneObjectsRegistry sceneObjects) {
       base.Initialize(viewManager);
 
-      _heroInventory = heroInventory;
+      _heroInventory = sceneObjects.Hero.GetComponent<HeroInventory>();
 
       InitializeItemCards();
     }

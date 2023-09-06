@@ -2,10 +2,12 @@ using UndeadHero.Character.Hero;
 using UndeadHero.Events;
 using UndeadHero.Infrastructure.Services.Ads;
 using UndeadHero.Infrastructure.Services.Events;
+using UndeadHero.Infrastructure.Services.SceneObjectsRegistry;
 using UndeadHero.Infrastructure.Services.ViewManagement;
 using UndeadHero.StaticData.Events;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace UndeadHero.UI.Views {
   public class DailyAdView : View {
@@ -18,11 +20,13 @@ namespace UndeadHero.UI.Views {
     private HeroInventory _heroInventory;
     private GameEvent _dailyAdEvent;
 
-    public void Initialize(IViewManager viewManager, IEventRegistry eventRegistry, IAdService adService, HeroInventory heroInventory) {
+    [Inject]
+    public void Initialize(IViewManager viewManager, IEventRegistry eventRegistry, IAdService adService, ISceneObjectsRegistry sceneObjects) {
       base.Initialize(viewManager);
 
       _adService = adService;
-      _heroInventory = heroInventory;
+
+      _heroInventory = sceneObjects.Hero.GetComponent<HeroInventory>();
 
       _dailyAdEvent = eventRegistry.GetEvent(RelatedEventId);
 
