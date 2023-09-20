@@ -4,7 +4,7 @@
 
 *When restless spirits aimlessly roam through the dark vastness of Samhain night and chilly winds howl amongst barren trees, the Ellsworth manor faces powerful witchcraft the likes of which it has never seen before.*
 
-*This story is about Lord Ellsworth's favorite dog Waffles, a fluffy guardian who swore to protect his beloved master even in the afterlife. A couple of decades has passed since the two were buried together, but the peaceful rest was disturbed by a looming danger coming after the old lord.*
+*This story is about Lord Ellsworth's favorite dog Waffles, a fluffy guardian who swore to protect his beloved master even in the afterlife. A couple of decades have passed since the two were buried together, but the peaceful rest was disturbed by a looming danger coming after the old lord.*
 
 *Through the power of devotion, and with the help of benevolent forces, Waffles gets back into the world of the living, to unveil the dark truths behind the unnatural magic and save Lord Ellsworth, proving once again that he is indeed a good boy.*
 
@@ -29,7 +29,7 @@ This project implements some concepts and mechanics that, ideally, should not co
 
 ### Showcase / Walkthrough
 
-TODO: YouTube video
+[![YouTube video](https://img.youtube.com/vi/wapDOewPwSw/hqdefault.jpg)](https://www.youtube.com/embed/wapDOewPwSw)
 
 
 ### Known issues
