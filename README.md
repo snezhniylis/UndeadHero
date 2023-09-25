@@ -29,7 +29,7 @@ This project implements some concepts and mechanics that, ideally, should not co
 
 ### Showcase / Walkthrough
 
-[![YouTube video](https://img.youtube.com/vi/wapDOewPwSw/hqdefault.jpg)](https://www.youtube.com/embed/wapDOewPwSw)
+[![YouTube video](https://img.youtube.com/vi/dKJTrovdUJo/hqdefault.jpg)](https://www.youtube.com/embed/dKJTrovdUJo)
 
 
 ### Known issues
